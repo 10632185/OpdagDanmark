@@ -1,12 +1,5 @@
 <script setup>
-const { data: posts, pending, error } = await useFetch(
-  'https://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/posts',
-  {
-    server: true,
-    lazy: false,
-    default: () => []
-  }
-)
+const { data: posts, pending, error } = useFetch('/api/posts')
 </script>
 
 <template>
