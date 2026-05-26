@@ -14,17 +14,13 @@ const { data: posts, pending, error } = useFetch('/api/posts')
 
     <div v-else>
       <div v-for="post in posts" :key="post.id">
-        <h2 v-html="post.title.rendered"></h2>
+        <h2 v-html="post.title"></h2>
 
-        <p v-if="post.acf?.hero_description">
-          {{ post.acf.hero_description }}
+        <p v-if="post.description">
+          {{ post.description }}
         </p>
 
-        <img
-          v-if="post.acf?.hero_img?.url"
-          :src="post.acf.hero_img.url"
-          alt=""
-        />
+        <img v-if="post.image" :src="post.image" />
       </div>
     </div>
   </div>
