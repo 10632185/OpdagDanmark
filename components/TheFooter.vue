@@ -7,7 +7,6 @@
   <footer class="footer">
     <div class="footer-container">
 
-      <!-- Aktuelt, Guides og For virksomheder er sat op i 3 columns-->
       <div class="footer-columns">
         <div class="col">
           <h3>Aktuelt</h3>
@@ -77,6 +76,10 @@
   background: #2b2b2b;
   color: white;
   padding: 50px 20px;
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
 }
 
 .footer-container {
