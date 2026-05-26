@@ -32,19 +32,41 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- FULL WIDTH HERO -->
   <div class="hero">
-    <div class="hero-content"></div>
+    <div class="hero-content">
+      <h1>Om os</h1>
+      <p>
+        Vi vil gøre det nemmere at opdage alt det smukke, Danmark har at byde
+        på.
+      </p>
+    </div>
   </div>
 
-  <!-- PAGE CONTENT -->
   <div class="om-os">
+    <section class="who">
+      <h2>Hvem er vi?</h2>
 
-    <section class="intro">
-      <h1>Om os</h1>
-      <p>Vi vil gøre det nemmere at opdage alt det smukke, Danmark har at byde på.</p>
+      <p>
+        OpdagDanmark er en travel‑tech startup fra Aalborg, grundlagt i 2019. Vi
+        udvikler digitale løsninger, der gør det nemmere at finde vej til alt,
+        hvad Danmark har at tilbyde - fra vandrestier til cykelruter til lokale
+        oplevelser.
+      </p>
+
+      <div class="founders">
+        <div class="founder">
+          <div class="img lise"></div>
+          <p class="name">Lars Stenvits‑Jensen</p>
+          <p class="role">Co‑founder</p>
+        </div>
+
+        <div class="founder">
+          <div class="img sebastian"></div>
+          <p class="name">Sebastian Søndergård</p>
+          <p class="role">Co‑founder</p>
+        </div>
+      </div>
     </section>
-
     <section class="numbers">
       <h2>OpdagDanmark i tal</h2>
 
@@ -65,38 +87,16 @@ onMounted(() => {
         </div>
       </div>
     </section>
-
-    <section class="who">
-      <h2>Hvem er vi?</h2>
-
-      <p>
-        OpdagDanmark er en travel‑tech startup fra Aalborg, grundlagt i 2019.
-        Vi udvikler digitale løsninger, der gør det nemmere at finde vej til alt,
-        hvad Danmark har at tilbyde — fra vandrestier til cykelruter til lokale oplevelser.
-      </p>
-
-      <div class="founders">
-        <div class="founder">
-          <div class="img lise"></div>
-          <p class="name">Lars Stenvits‑Jensen</p>
-          <p class="role">Co‑founder</p>
-        </div>
-
-        <div class="founder">
-          <div class="img sebastian"></div>
-          <p class="name">Sebastian Søndergård</p>
-          <p class="role">Co‑founder</p>
-        </div>
-      </div>
-    </section>
-
     <section class="vision">
       <h2>Hvad vi tror på</h2>
 
       <div class="vision-grid">
         <div class="vision-box">
           <h3>Datadrevne oplevelser</h3>
-          <p>Vi leverer skræddersyet information baseret på brugerens placering og interesser.</p>
+          <p>
+            Vi leverer skræddersyet information baseret på brugerens placering
+            og interesser.
+          </p>
         </div>
 
         <div class="vision-box">
@@ -110,28 +110,32 @@ onMounted(() => {
         </div>
       </div>
     </section>
-
   </div>
 
-  <!-- FULL WIDTH CTA -->
   <section class="cta">
-    <h2>Klar til at opdage Danmark?</h2>
-    <p>Download appen og bliv en del af fællesskabet, der gør det nemmere at udforske Danmark.</p>
-    <button>Kom i gang →</button>
-  </section>
+    <div class="cta-container">
+      <div class="cta-video">
+        <iframe
+          src="https://www.youtube.com/embed/Lc_TUZdbRp0"
+          title="YouTube video"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
 
+      <div class="cta-content">
+        <h2>Klar til at opdage Danmark?</h2>
+        <p>
+          Download appen og bliv en del af fællesskabet, der gør det nemmere at
+          udforske Danmark.
+        </p>
+        <button>Kom i gang →</button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
-html, body, .om-os {
-  overflow-x: hidden;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* FULL WIDTH HERO */
 .hero {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
@@ -149,17 +153,32 @@ html, body, .om-os {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
 }
 
 .hero-content {
   position: relative;
-  padding: 24px;
-  color: white;
-  text-align: center;
+  z-index: 2;
+  width: 100%;
+  text-align: left;
+  padding-bottom: 1rem;
+  padding-left: 3rem;
 }
 
-/* PAGE CONTENT */
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.hero-content p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: white;
+  opacity: 0.95;
+}
+
 .om-os {
   max-width: 1100px;
   margin: 0 auto;
@@ -170,7 +189,6 @@ html, body, .om-os {
   font-family: system-ui, sans-serif;
 }
 
-/* INTRO */
 .intro {
   text-align: center;
 }
@@ -180,9 +198,11 @@ html, body, .om-os {
   font-weight: 700;
 }
 
-/* NUMBERS */
 .numbers {
   text-align: center;
+  background: #f3f3f3;
+  padding: 60px 20px;
+  border-radius: 16px;
 }
 
 .stats {
@@ -198,12 +218,10 @@ html, body, .om-os {
   font-weight: 700;
 }
 
-/* WHO */
 .who {
   text-align: center;
 }
 
-/* FOUNDERS */
 .founders {
   display: flex;
   flex-direction: column;
@@ -226,7 +244,6 @@ html, body, .om-os {
   font-size: 0.9rem;
 }
 
-/* PERFECT ROUND IMAGES */
 .img {
   width: 150px;
   height: 150px;
@@ -252,7 +269,6 @@ html, body, .om-os {
   background-image: url("https://thispersondoesnotexist.com/");
 }
 
-/* VISION */
 .vision {
   text-align: center;
 }
@@ -261,7 +277,7 @@ html, body, .om-os {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 4rem;
   margin-top: 24px;
 }
 
@@ -279,22 +295,39 @@ html, body, .om-os {
   align-items: center;
 }
 
-/* FULL WIDTH CTA */
 .cta {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   width: 100vw;
   background: #111;
   color: white;
-  text-align: center;
-
-  padding: 60px 20px; /* inside spacing */
-
-  margin-top: 30px;   /* spacing ABOVE the CTA */
+  padding: 60px 20px;
+  margin-top: 2rem;
 }
 
+.cta-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 
-.cta button {
+.cta-video iframe {
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+}
+
+.cta-content {
+  text-align: center;
+}
+
+.cta-content h2 {
+  margin-bottom: 10px;
+}
+
+.cta-content button {
   margin-top: 16px;
   padding: 12px 24px;
   background: #ff7a00;
@@ -304,18 +337,7 @@ html, body, .om-os {
   font-size: 1rem;
 }
 
-/* FULL WIDTH BOTTOM IMAGE */
-.bottom-img {
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  width: 100vw;
-  height: 260px;
-  background-image: url("https://source.unsplash.com/1600x900/?denmark,nature");
-  background-size: cover;
-  background-position: center;
-}
-
-/* DESKTOP */
+/* Desktop Version */
 @media (min-width: 900px) {
   .hero {
     height: 420px;
@@ -343,6 +365,25 @@ html, body, .om-os {
   }
 
   .bottom-img {
+    height: 360px;
+  }
+
+  .cta-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  .cta-video {
+    flex: 2;
+  }
+
+  .cta-content {
+    flex: 1;
+    text-align: left;
+  }
+
+  .cta-video iframe {
     height: 360px;
   }
 }
