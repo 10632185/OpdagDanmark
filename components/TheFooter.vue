@@ -78,6 +78,11 @@
   padding: 50px 20px;
   background: #2b2b2b;
   color: white;
+  padding: 50px 20px;
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
 }
 
 .footer-container {
@@ -146,39 +151,5 @@
 
 .socials img:hover {
   opacity: 1;
-}
-
-@media (max-width: 900px) {
-
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-  }
-
-  .footer-columns {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-    
-  }
-
-  .col {
-    width: 100%;
-  }
-
-  .col ul {
-    text-align: center;
-  }
-
-  .footer-right {
-    text-align: center;
-  }
-
-  .socials {
-    justify-content: center;
-  }
 }
 </style>
