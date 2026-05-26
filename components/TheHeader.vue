@@ -9,12 +9,11 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 <template>
   <header class="header">
     <div class="logo-area">
-      <img src="/logo.png" alt="Logo" class="logo" />
-      <span class="brand">OpdagDanmark</span>
+      <NuxtLink to="/"><img src="../public/img/opdagdanmark_logo.png" alt="Logo" class="logo" /></NuxtLink>
     </div>
 
     <nav class="desktop-menu">
-      <NuxtLink to="/">Oplevelseskort</NuxtLink>
+      <NuxtLink to="/oplevelseskort">Oplevelseskort</NuxtLink>
       <NuxtLink to="/eventkalender">Eventkalender</NuxtLink>
       <NuxtLink to="/danmarks-bedste">Danmarks Bedste</NuxtLink>
 
@@ -87,7 +86,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 }
 
 .logo {
-  width: 2rem;
+  width: 10rem;
   height: 2rem;
 }
 
