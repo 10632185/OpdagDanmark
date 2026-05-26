@@ -73,6 +73,9 @@
 
 <style scoped>
 .footer {
+  width: 100%;
+  margin: 0; 
+  padding: 50px 20px;
   background: #2b2b2b;
   color: white;
   padding: 50px 20px;
@@ -83,16 +86,22 @@
 }
 
 .footer-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
+  flex-wrap: wrap; 
   justify-content: space-between;
   gap: 40px;
-  max-width: 1400px;
-  margin: auto;
 }
+
 
 .footer-columns {
   display: flex;
-  gap: 50px;
+  flex-wrap: wrap; 
+  gap: 40px;
+  flex: 1;
+  min-width: 260px;
 }
 
 .col h3 {
@@ -120,6 +129,7 @@
 
 .footer-right {
   text-align: right;
+  min-width: 260px;
 }
 
 .company-info p {
