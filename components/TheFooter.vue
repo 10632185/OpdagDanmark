@@ -79,8 +79,6 @@
   background: #2b2b2b;
   color: white;
   padding: 50px 20px;
-
-  width: 100vw;
   box-sizing: border-box;
 }
 

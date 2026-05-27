@@ -9,7 +9,9 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 <template>
   <header class="header">
     <div class="logo-area">
-      <NuxtLink to="/"><img src="../public/img/opdagdanmark_logo.png" alt="Logo" class="logo" /></NuxtLink>
+      <NuxtLink to="/">
+        <img src="../public/img/opdagdanmark_logo.png" alt="Logo" class="logo" />
+      </NuxtLink>
     </div>
 
     <nav class="desktop-menu">
@@ -19,10 +21,8 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 
       <div class="desktop-dropdown">
         <button class="desktop-dropdown-btn">
-          Guides
-          <span>▼</span>
+          Guides <span class="arrow">▼</span>
         </button>
-
         <div class="desktop-dropdown-content">
           <NuxtLink to="/guides/landsdele">Landsdele</NuxtLink>
           <NuxtLink to="/guides/temaer">Temaer</NuxtLink>
@@ -30,13 +30,11 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
       </div>
 
       <NuxtLink to="/om-os">Om os</NuxtLink>
-      <NuxtLink to="/klubdanmark">KlubDanmark</NuxtLink>
+      <NuxtLink to="/klubdanmark" class="cta-btn">KlubDanmark</NuxtLink>
     </nav>
 
     <div class="burger" @click="toggleMenu">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
   </header>
 
@@ -52,7 +50,6 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
           Guides
           <span class="arrow" :class="{ open: guidesOpen }">▼</span>
         </button>
-
         <ul v-if="guidesOpen" class="dropdown-content">
           <li><NuxtLink to="/guides/landsdele">Landsdele</NuxtLink></li>
           <li><NuxtLink to="/guides/temaer">Temaer</NuxtLink></li>
@@ -66,73 +63,93 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 </template>
 
 <style scoped>
-
 .header {
   position: sticky;
   top: 0;
   z-index: 999;
   background: white;
-  padding: 0.75rem 1.25rem;
+  padding: 0 2rem;
+  height: 72px; /* NEW */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.0625rem solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
 }
 
 .logo {
-  width: 10rem;
   height: 2rem;
 }
 
-.brand {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #d33;
-}
-
+/* DESKTOP NAV */
 .desktop-menu {
   display: none;
-  gap: 1.5625rem;
+  gap: 4px;
   align-items: center;
+  height: 100%; /* NEW */
 }
 
-.desktop-menu a {
-  font-size: 1rem;
-  font-weight: 500;
-  color: black;
-}
-
-.desktop-dropdown {
-  position: relative;
-}
-
+.desktop-menu a,
 .desktop-dropdown-btn {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+  padding: 6px 14px;
+  border-radius: 999px;
   background: none;
   border: none;
-  font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  transition: background 0.18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.desktop-menu a:hover,
+.desktop-dropdown-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Active page pill */
+.desktop-menu .router-link-active:not(.cta-btn) {
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+/* CTA BUTTON */
+.cta-btn {
+  background: #d33 !important;
+  color: white !important;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+.cta-btn:hover {
+  background: #b82828 !important;
+}
+
+/* DROPDOWN */
+.desktop-dropdown {
+  position: relative;
 }
 
 .desktop-dropdown-content {
   display: none;
   position: absolute;
-  top: 1.75rem;
+  top: calc(100% + 6px);
   left: 0;
   background: white;
   border: 1px solid #eee;
-  padding: 0.625rem 0.9375rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   flex-direction: column;
+  min-width: 140px;
+  z-index: 100;
 }
 
 .desktop-dropdown:hover .desktop-dropdown-content {
@@ -140,9 +157,23 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 }
 
 .desktop-dropdown-content a {
-  margin-bottom: 0.5rem;
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  margin-bottom: 2px;
+  font-size: 0.875rem;
+  color: #111;
 }
 
+.desktop-dropdown-content a:hover {
+  background: #f0f0f0;
+}
+
+.arrow {
+  font-size: 0.65rem;
+  margin-left: 3px;
+}
+
+/* BURGER */
 .burger {
   width: 1.75rem;
   height: 1.375rem;
@@ -153,11 +184,12 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 }
 
 .burger span {
-  height: 0.1875rem;
+  height: 3px;
   background: black;
   border-radius: 3px;
 }
 
+/* MOBILE MENU */
 .mobile-menu {
   position: fixed;
   top: 0;
@@ -168,7 +200,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   padding: 5rem 1.25rem;
   transition: 0.3s ease;
   z-index: 998;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-menu.open {
@@ -201,12 +233,8 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   cursor: pointer;
 }
 
-.arrow {
-  float: right;
-  transition: 0.2s;
-}
-
 .arrow.open {
+  display: inline-block;
   transform: rotate(180deg);
 }
 
@@ -219,6 +247,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   margin-bottom: 0.75rem;
 }
 
+/* DESKTOP BREAKPOINT */
 @media (min-width: 900px) {
   .burger {
     display: none;
