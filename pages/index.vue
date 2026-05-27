@@ -1,59 +1,57 @@
 <script setup>
-const { data: produkter, pending, error } = await useAsyncData(
-  'produkter',
-  async () => {
-    const produkter = await $fetch(
-      'http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/produkter'
-    )
+const {
+  data: produkter,
+  pending,
+  error,
+} = await useAsyncData("produkter", async () => {
+  const produkter = await $fetch(
+    "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/produkter",
+  );
 
-    return await Promise.all(
-      produkter.map(async (produkt) => {
-        let billede = null
+  return await Promise.all(
+    produkter.map(async (produkt) => {
+      let billede = null;
 
-        if (produkt.acf?.billede) {
-          const media = await $fetch(
-            `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${produkt.acf.billede}`
-          )
+      if (produkt.acf?.billede) {
+        const media = await $fetch(
+          `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${produkt.acf.billede}`,
+        );
 
-          billede = media.source_url
-        }
+        billede = media.source_url;
+      }
 
-        return {
-          ...produkt,
-          billede
-        }
-      })
-    )
-  }
-)
+      return {
+        ...produkt,
+        billede,
+      };
+    }),
+  );
+});
 
-const { data: kdtilbud } = await useAsyncData(
-  'kdtilbud',
-  async () => {
-    const tilbud = await $fetch(
-      'http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/kdtilbud'
-    )
+const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
+  const tilbud = await $fetch(
+    "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/kdtilbud",
+  );
 
-    return await Promise.all(
-      tilbud.map(async (tilbudItem) => {
-        let billede = null
+  return await Promise.all(
+    tilbud.map(async (tilbudItem) => {
+      let billede = null;
 
-        if (tilbudItem.acf?.billede) {
-          const media = await $fetch(
-            `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${tilbudItem.acf.billede}`
-          )
+      if (tilbudItem.acf?.billede) {
+        const media = await $fetch(
+          `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${tilbudItem.acf.billede}`,
+        );
 
-          billede = media.source_url
-        }
+        billede = media.source_url;
+      }
 
-        return {
-          ...tilbudItem,
-          billede
-        }
-      })
-    )
-  }
-)
+      return {
+        ...tilbudItem,
+        billede,
+      };
+    }),
+  );
+});
 </script>
 
 <template>
@@ -62,27 +60,23 @@ const { data: kdtilbud } = await useAsyncData(
       <h2>Tilbud:</h2>
 
       <div class="forsideProducts">
-
         <p v-if="pending">Loading produkter...</p>
 
         <p v-else-if="error">Kunne ikke hente produkter</p>
 
         <div v-else class="forsideGrid">
-
           <div
             v-for="produkt in produkter"
             :key="produkt.id"
             class="forsideCard"
           >
-
             <img
               v-if="produkt.billede"
               :src="produkt.billede"
               class="forsideCardImage"
-            >
+            />
 
             <div class="forsideCardContent">
-
               <h2 class="forsideCardTitle">
                 {{ produkt.acf?.titel }}
               </h2>
@@ -91,50 +85,42 @@ const { data: kdtilbud } = await useAsyncData(
                 {{ produkt.acf?.lokation }}
               </p>
 
-              <p class="forsideCardPrice">
-                {{ produkt.acf?.pris }} kr
-              </p>
-
+              <p class="forsideCardPrice">{{ produkt.acf?.pris }} kr</p>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
 
     <section>
-      <img class="forsideKlubDanmarkImg" src="../public/img/klubDanmark.png" alt="">
+      <img
+        class="forsideKlubDanmarkImg"
+        src="../public/img/klubDanmark.png"
+        alt=""
+      />
 
-      <h2 class="forsideKlubDanmarkTitel">
-        KlubDanmark
-      </h2>
+      <h2 class="forsideKlubDanmarkTitel">KlubDanmark</h2>
 
       <p>
-        I KlubDanmark giver virksomhederne de penge til dig.<br>
-        Derfor kan du i OpdagDanmarks fordelsklub spare penge på 500+ oplevelser over hele landet.<br>
-        Bliv medlem i dag og få fordele og besparelser hos nogle af Danmarks bedste oplevelser samt adgang til over 450+ digitale cykel- og vandreruter.
+        I KlubDanmark giver virksomhederne de penge til dig.<br />
+        Derfor kan du i OpdagDanmarks fordelsklub spare penge på 500+ oplevelser
+        over hele landet.<br />
+        Bliv medlem i dag og få fordele og besparelser hos nogle af Danmarks
+        bedste oplevelser samt adgang til over 450+ digitale cykel- og
+        vandreruter.
       </p>
 
       <h2>Få blandt andet disse tilbud:</h2>
 
       <div class="forsideGrid">
-
-        <div
-          v-for="tilbud in kdtilbud"
-          :key="tilbud.id"
-          class="forsideCard"
-        >
-
+        <div v-for="tilbud in kdtilbud" :key="tilbud.id" class="forsideCard">
           <img
             v-if="tilbud.billede"
             :src="tilbud.billede"
             class="forsideCardImage"
-          >
+          />
 
           <div class="forsideCardContent">
-
             <h2 class="forsideCardTitle">
               {{ tilbud.acf?.titel }}
             </h2>
@@ -142,23 +128,15 @@ const { data: kdtilbud } = await useAsyncData(
             <p>
               {{ tilbud.acf?.lokation }}
             </p>
-
           </div>
-
         </div>
-
       </div>
 
-<div class="forsideButtonWrapper">
-  <button class="forsideButtonPrimary">
-    Bliv Medlem
-  </button>
+      <div class="forsideButtonWrapper">
+        <button class="forsideButtonPrimary">Bliv Medlem</button>
 
-  <button class="forsideButtonSecondary">
-    Se alle fordele
-  </button>
-</div>
-
+        <button class="forsideButtonSecondary">Se alle fordele</button>
+      </div>
     </section>
   </div>
 </template>
@@ -242,7 +220,7 @@ const { data: kdtilbud } = await useAsyncData(
 }
 
 .forsideButtonPrimary {
-  background: #DD3333;
+  background: #dd3333;
   color: white;
 }
 
@@ -252,13 +230,12 @@ const { data: kdtilbud } = await useAsyncData(
 
 .forsideButtonSecondary {
   background: white;
-  color: #DD3333;
-  border: 2px solid #DD3333;
+  color: #dd3333;
+  border: 2px solid #dd3333;
 }
 
 .forsideButtonSecondary:hover {
-  background: #DD3333;
+  background: #dd3333;
   color: white;
 }
-
 </style>

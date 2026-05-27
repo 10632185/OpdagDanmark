@@ -81,7 +81,6 @@
   padding: 50px 20px;
 
   width: 100vw;
-  margin-left: calc(50% - 50vw);
   box-sizing: border-box;
 }
 
