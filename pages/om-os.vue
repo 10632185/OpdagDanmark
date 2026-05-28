@@ -43,6 +43,27 @@ onMounted(() => {
   </div>
 
   <div class="om-os">
+       <section class="numbers">
+      <h2>OpdagDanmark i tal</h2>
+
+      <div class="stats">
+        <div class="stat">
+          <h3>{{ formatNumber(visitors) }}+</h3>
+          <p>Besøgende i 2025</p>
+        </div>
+
+        <div class="stat">
+          <h3>{{ formatNumber(downloads) }}+</h3>
+          <p>App downloads</p>
+        </div>
+
+        <div class="stat">
+          <h3>{{ formatNumber(followers) }}+</h3>
+          <p>Følgere på SoMe</p>
+        </div>
+      </div>
+    </section>
+    
     <section class="who">
       <h2>Hvem er vi?</h2>
 
@@ -67,26 +88,7 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <section class="numbers">
-      <h2>OpdagDanmark i tal</h2>
-
-      <div class="stats">
-        <div class="stat">
-          <h3>{{ formatNumber(visitors) }}+</h3>
-          <p>Besøgende i 2025</p>
-        </div>
-
-        <div class="stat">
-          <h3>{{ formatNumber(downloads) }}+</h3>
-          <p>App downloads</p>
-        </div>
-
-        <div class="stat">
-          <h3>{{ formatNumber(followers) }}+</h3>
-          <p>Følgere på SoMe</p>
-        </div>
-      </div>
-    </section>
+ 
     <section class="vision">
       <h2>Hvad vi tror på</h2>
 
@@ -203,6 +205,7 @@ onMounted(() => {
   background: #f3f3f3;
   padding: 60px 20px;
   border-radius: 16px;
+  margin-block:1rem;
 }
 
 .stats {

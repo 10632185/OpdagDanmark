@@ -5,7 +5,7 @@ const {
   error,
 } = await useAsyncData("danmarksbedste", async () => {
   const items = await $fetch(
-    "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/danmarksbedste"
+    "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/danmarksbedste",
   );
 
   return await Promise.all(
@@ -14,7 +14,7 @@ const {
 
       if (DB.acf?.billede) {
         const media = await $fetch(
-          `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${DB.acf.billede}`
+          `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${DB.acf.billede}`,
         );
 
         billede = media.source_url;
@@ -24,17 +24,18 @@ const {
         ...DB,
         billede,
       };
-    })
+    }),
   );
 });
 </script>
 
 <template>
   <section class="vote-grid">
-    <div
+    <NuxtLink
       v-for="DB in [...danmarksbedste].reverse()"
       :key="DB.id"
       class="vote-card"
+      :to="`/danmarksbedste/${DB.id}`"
     >
       <div
         class="vote-card-image"
@@ -53,7 +54,7 @@ const {
           {{ DB.acf?.dato }}
         </p>
       </div>
-    </div>
+    </NuxtLink>
   </section>
 </template>
 
@@ -72,13 +73,13 @@ const {
   background: white;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   transition: 0.25s ease;
 }
 
 .vote-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
 .vote-card-image {
