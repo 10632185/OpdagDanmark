@@ -1,9 +1,19 @@
 <script setup>
 const menuOpen = ref(false)
 const guidesOpen = ref(false)
+const desktopGuidesOpen = ref(false)
 
 const toggleMenu = () => (menuOpen.value = !menuOpen.value)
 const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
+const toggleDesktopGuides = () => (desktopGuidesOpen.value = !desktopGuidesOpen.value)
+
+onMounted(() => {
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.desktop-dropdown')) {
+      desktopGuidesOpen.value = false
+    }
+  })
+})
 </script>
 
 <template>
@@ -20,24 +30,35 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
       <NuxtLink to="/danmarks-bedste">Danmarks Bedste</NuxtLink>
 
       <div class="desktop-dropdown">
-        <button class="desktop-dropdown-btn">
-          Guides <span class="arrow">▼</span>
+        <button class="desktop-dropdown-btn" @click.stop="toggleDesktopGuides">
+          Guides <span class="arrow" :class="{ open: desktopGuidesOpen }">▼</span>
         </button>
-        <div class="desktop-dropdown-content">
-          <NuxtLink to="/guides/landsdele">Landsdele</NuxtLink>
-          <NuxtLink to="/guides/temaer">Temaer</NuxtLink>
+        <div class="desktop-dropdown-content" :class="{ open: desktopGuidesOpen }">
+          <NuxtLink to="/guides/landsdele" @click="desktopGuidesOpen = false">Landsdele</NuxtLink>
+          <NuxtLink to="/guides/temaer" @click="desktopGuidesOpen = false">Temaer</NuxtLink>
         </div>
       </div>
 
       <NuxtLink to="/om-os">Om os</NuxtLink>
-      <NuxtLink to="/klubdanmark" class="cta-btn">KlubDanmark</NuxtLink>
     </nav>
+
+    <div class="cta-area">
+      <NuxtLink to="/klubdanmark" class="cta-btn">KlubDanmark</NuxtLink>
+    </div>
 
     <div class="burger" @click="toggleMenu">
       <span></span><span></span><span></span>
     </div>
   </header>
 
+  <!-- BLURRED BACKDROP -->
+  <div
+    class="menu-backdrop"
+    :class="{ open: menuOpen }"
+    @click="menuOpen = false"
+  ></div>
+
+  <!-- MOBILE MENU -->
   <nav class="mobile-menu" :class="{ open: menuOpen }">
     <ul>
       <li><NuxtLink to="/">Forside</NuxtLink></li>
@@ -57,8 +78,10 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
       </li>
 
       <li><NuxtLink to="/om-os">Om Os</NuxtLink></li>
-      <li><NuxtLink to="/klubdanmark">KlubDanmark</NuxtLink></li>
     </ul>
+
+    <!-- BOTTOM CTA BUTTON -->
+    <NuxtLink to="/klubdanmark" class="cta-bottom">KlubDanmark</NuxtLink>
   </nav>
 </template>
 
@@ -69,7 +92,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   z-index: 999;
   background: white;
   padding: 0 2rem;
-  height: 72px; /* NEW */
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,6 +100,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 }
 
 .logo-area {
+  flex: 1;
   display: flex;
   align-items: center;
 }
@@ -85,12 +109,19 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   height: 2rem;
 }
 
-/* DESKTOP NAV */
 .desktop-menu {
   display: none;
   gap: 4px;
   align-items: center;
-  height: 100%; /* NEW */
+  justify-content: center;
+  height: 100%;
+}
+
+.cta-area {
+  flex: 1;
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .desktop-menu a,
@@ -99,7 +130,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   font-weight: 500;
   color: #111;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 50px;
   background: none;
   border: none;
   cursor: pointer;
@@ -113,26 +144,28 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   background: #f0f0f0;
 }
 
-/* Active page pill */
-.desktop-menu .router-link-active:not(.cta-btn) {
+.desktop-menu .router-link-active {
   background: #f0f0f0;
   font-weight: 600;
 }
 
-/* CTA BUTTON */
 .cta-btn {
-  background: #d33 !important;
+  background: #d33;
   color: white !important;
-  padding: 8px 18px !important;
-  border-radius: 8px !important;
-  font-weight: 600 !important;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.18s ease;
+  white-space: nowrap;
 }
 
 .cta-btn:hover {
-  background: #b82828 !important;
+  background: #b82828;
 }
 
-/* DROPDOWN */
+/* DESKTOP DROPDOWN */
 .desktop-dropdown {
   position: relative;
 }
@@ -152,16 +185,17 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   z-index: 100;
 }
 
-.desktop-dropdown:hover .desktop-dropdown-content {
+.desktop-dropdown-content.open {
   display: flex;
 }
 
 .desktop-dropdown-content a {
-  border-radius: 8px !important;
-  padding: 8px 14px !important;
+  border-radius: 50px;
+  padding: 8px 14px;
   margin-bottom: 2px;
   font-size: 0.875rem;
   color: #111;
+  text-decoration: none;
 }
 
 .desktop-dropdown-content a:hover {
@@ -171,6 +205,12 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
 .arrow {
   font-size: 0.65rem;
   margin-left: 3px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
 }
 
 /* BURGER */
@@ -189,62 +229,95 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   border-radius: 3px;
 }
 
+/* BACKDROP */
+.menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 900;
+}
+
+.menu-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
 /* MOBILE MENU */
 .mobile-menu {
   position: fixed;
-  top: 0;
   right: -100%;
-  width: 75%;
+  width: 80%;
+  max-width: 320px;
   height: 100vh;
   background: white;
-  padding: 5rem 1.25rem;
-  transition: 0.3s ease;
+  padding: 4rem 2rem;
+  transition: right 0.3s ease;
   z-index: 998;
-  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-menu.open {
-  right: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .mobile-menu ul {
   list-style: none;
   padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.cta-bottom {
+  background: #d33;
+  color: white;
+  text-align: center;
+  padding: 14px 0;
+  border-radius: 50px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+.mobile-menu.open {
+  right: 0;
 }
 
 .mobile-menu li {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
 }
 
-.mobile-menu a {
-  font-size: 1.25rem;
-  color: black;
-  font-weight: 500;
+.mobile-menu a,
+.dropdown-btn {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  display: block;
 }
 
 .dropdown-btn {
   background: none;
   border: none;
-  font-size: 1.25rem;
-  font-weight: 500;
-  width: 100%;
-  text-align: left;
   padding: 0;
   cursor: pointer;
-}
-
-.arrow.open {
-  display: inline-block;
-  transform: rotate(180deg);
+  width: 100%;
+  text-align: left;
 }
 
 .dropdown-content {
-  margin-top: 0.625rem;
-  padding-left: 0.9375rem;
+  margin-top: 0.75rem;
+  padding-left: 1rem;
 }
 
-.dropdown-content li {
-  margin-bottom: 0.75rem;
+.dropdown-content a {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
 }
 
 /* DESKTOP BREAKPOINT */
@@ -258,6 +331,10 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
   }
 
   .desktop-menu {
+    display: flex;
+  }
+
+  .cta-area {
     display: flex;
   }
 }

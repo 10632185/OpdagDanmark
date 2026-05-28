@@ -1,13 +1,13 @@
 <script setup>
-
 </script>
 
 <template>
-
   <footer class="footer">
     <div class="footer-container">
 
+      <!-- LEFT COLUMNS -->
       <div class="footer-columns">
+
         <div class="col">
           <h3>Aktuelt</h3>
           <ul>
@@ -47,8 +47,10 @@
             <li><a href="#">Sælg gavekort online</a></li>
           </ul>
         </div>
+
       </div>
 
+      <!-- RIGHT SIDE -->
       <div class="footer-right">
         <div class="company-info">
           <p><strong>OpdagDanmark ApS</strong></p>
@@ -74,34 +76,32 @@
 <style scoped>
 .footer {
   width: 100%;
-  margin: 0; 
-  padding: 50px 20px;
   background: #2b2b2b;
   color: white;
   padding: 50px 20px;
   box-sizing: border-box;
 }
 
+/* MAIN CONTAINER */
 .footer-container {
-  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 40px;
 }
 
-
+/* DESKTOP — 4 columns */
 .footer-columns {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 40px;
   flex: 1;
-  min-width: 260px;
+  gap: 60px;
+  min-width: 600px;
 }
 
-.col h3 {
+.col h3,
+.col h4 {
   margin-bottom: 10px;
 }
 
@@ -118,15 +118,17 @@
 .col a {
   color: white;
   opacity: 0.8;
+  text-decoration: none;
 }
 
 .col a:hover {
   opacity: 1;
 }
 
+/* RIGHT SIDE */
 .footer-right {
-  text-align: right;
   min-width: 260px;
+  text-align: right;
 }
 
 .company-info p {
@@ -148,5 +150,38 @@
 
 .socials img:hover {
   opacity: 1;
+}
+
+/* TABLET — 2 columns */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .footer-right {
+    text-align: left;
+  }
+}
+
+/* MOBILE — 1 column */
+@media (max-width: 600px) {
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-right {
+    text-align: left;
+  }
+
+  .socials {
+    justify-content: flex-start;
+  }
 }
 </style>
