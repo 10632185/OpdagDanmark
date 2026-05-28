@@ -148,6 +148,40 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
         <button class="forsideButtonSecondary">Se alle fordele</button>
       </div>
     </section>
+    <section class="newsletterSection">
+  <img
+    class="newsletterBg"
+    src="../public/img/nyhedsBrevTilmelding.png"
+    alt="Lighthouse background"
+  />
+
+  <div class="newsletterOverlay"></div>
+
+  <div class="newsletterCard">
+    <h2>Nyhedsbrev</h2>
+
+    <p>
+      Få vores gratis nyhedsbrev med inspiration til nye oplevelser i Danmark,
+      afstemninger med Danmarks Bedste og meget mere.
+    </p>
+
+    <form class="newsletterForm">
+      <div class="newsletterRow">
+        <input type="text" placeholder="Navn" />
+        <input type="text" placeholder="Efternavn" />
+      </div>
+
+      <input type="email" placeholder="Email" />
+      <input type="text" placeholder="Telefon (+45...)" />
+      <input type="text" placeholder="Postnummer" />
+
+      <button type="submit" class="newsletterButton">
+        Tilmeld nyhedsbrev
+      </button>
+    </form>
+  </div>
+</section>
+
   </div>
 </template>
 
@@ -333,4 +367,92 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
   background: #dd3333;
   color: white;
 }
+
+/* NEWSLETTER SECTION */
+.newsletterSection {
+  position: relative;
+  width: 100%;
+  height: 860px;
+  margin-block: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.newsletterBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.newsletterOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.newsletterCard {
+  position: relative;
+  z-index: 2;
+  width: 550px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.newsletterCard h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.newsletterCard p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.newsletterRow {
+  display: flex;
+  gap: 15px;
+}
+
+.newsletterRow input {
+  flex: 1;
+}
+
+.newsletterForm input {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.newsletterButton {
+  margin-top: 10px;
+  padding: 16px;
+  background: #dd3333;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.newsletterButton:hover {
+  opacity: 0.85;
+}
+
 </style>
