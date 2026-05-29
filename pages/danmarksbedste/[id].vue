@@ -49,19 +49,19 @@ watchEffect(() => {
       <h1 class="event-title">{{ post.acf.titel }}</h1>
 
       <p class="event-subtitle">
-        {{ post.acf.tid || "Tid ikke angivet" }}
+        {{ post.acf.adresse || "Tid ikke angivet" }}
       </p>
-
+    <div class="event-info-box">
+        <p><strong>DATO:</strong> {{ post.acf.dato }}</p>
+      </div>
       <p class="event-description" v-html="post.acf.brodtekst"></p>
 
       <div class="event-buttons">
-        <button class="btn-primary">Tilmeld dig nu</button>
-        <button class="btn-secondary">Læs mere</button>
+        <button class="btn-primary">Stem her</button>
+        <button class="btn-secondary">Nominer</button>
       </div>
 
-      <div class="event-info-box">
-        <p><strong>DATO:</strong> {{ post.acf.dato }}</p>
-      </div>
+  
     </div>
   </section>
 </template>
@@ -159,5 +159,6 @@ watchEffect(() => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   font-size: 1rem;
   line-height: 1.6;
+  margin-block: 1rem;
 }
 </style>

@@ -63,6 +63,7 @@ const {
         <p class="vote-dates">
           {{ DB.acf?.dato }}
         </p>
+        
       </div>
     </NuxtLink>
   </section>
