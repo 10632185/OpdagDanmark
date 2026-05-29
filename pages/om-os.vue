@@ -95,21 +95,22 @@ onMounted(() => {
       <div class="vision-grid">
         <div class="vision-box">
           <div class="icon-box">
-            <span class="icon">📊</span>
+           <span class="icon"><img src="/svg/chart-line-solid-full.svg" alt=""></span>
+
           </div>
           <h3>Datadrevne oplevelser</h3>
           <p>Vi leverer skræddersyet information baseret på brugerens placering og interesser.</p>
         </div>
         <div class="vision-box">
           <div class="icon-box">
-            <span class="icon">🗄️</span>
+            <span class="icon"><img src="/svg/server-solid-full.svg" alt=""></span>
           </div>
           <h3>Data i danske hænder</h3>
           <p>Vi sikrer at data og værdier forbliver i Danmark.</p>
         </div>
         <div class="vision-box">
           <div class="icon-box">
-            <span class="icon">🔗</span>
+            <span class="icon"><img src="/svg/link-solid-full.svg" alt=""></span>
           </div>
           <h3>Direkte forbindelse</h3>
           <p>Vi forbinder brugere og turisterhverv uden dyre mellemled.</p>
@@ -384,9 +385,13 @@ onMounted(() => {
   margin-bottom: 12px;
 }
 
-.icon {
-  font-size: 1.1rem;
+.icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%);
 }
+
 
 .vision-box h3 {
   margin: 0 0 6px;
