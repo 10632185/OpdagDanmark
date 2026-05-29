@@ -11,10 +11,10 @@
         <div class="col">
           <h3>Aktuelt</h3>
           <ul>
-            <li><a href="#">Oplevelsesgaver</a></li>
-            <li><a href="#">Julemarkeder</a></li>
-            <li><a href="#">Halloween</a></li>
-            <li><a href="#">Tilbud på hotel-ophold</a></li>
+            <li><a href="#">Oplevelseskort</a></li>
+            <li><a href="#">KlubDanmark</a></li>
+            <li><a href="#">Danmarks Bedste</a></li>
+            <li><a href="#">Om os</a></li>
           </ul>
         </div>
 
@@ -24,14 +24,9 @@
             <li><a href="#">Nordjylland</a></li>
             <li><a href="#">Midtjylland</a></li>
             <li><a href="#">Sydjylland</a></li>
-            <li><a href="#">Fyn & øer</a></li>
-            <li><a href="#">Sjælland & øer</a></li>
-          </ul>
-
-          <ul class="sub">
-            <li><a href="#">Vandreruter</a></li>
-            <li><a href="#">Cykelruter</a></li>
-          </ul>
+            <li><a href="#">Fyn</a></li>
+            <li><a href="#">Sjælland</a></li>
+          </ul>   
         </div>
 
         <div class="col">
@@ -62,10 +57,10 @@
         </div>
 
         <div class="socials">
-          <a href="#"><img src="" alt="Facebook" /></a>
-          <a href="#"><img src="" alt="Instagram" /></a>
-          <a href="#"><img src="" alt="LinkedIn" /></a>
-          <a href="#"><img src="" alt="Email" /></a>
+          <a target="_blank" href="https://www.facebook.com/opdagdanmark/"><img src="../public/svg/square-facebook-brands-solid-full (1).svg" alt="Facebook" /></a>
+          <a target="_blank" href="https://www.instagram.com/opdagdanmark/"><img src="../public/svg/square-instagram-brands-solid-full (1).svg" alt="Instagram" /></a>
+          <a target="_blank" href="https://www.linkedin.com/company/opdagdanmark/"><img src="../public/svg/linkedin-brands-solid-full.svg" alt="LinkedIn" /></a>
+          <a href="mailto:info@opdagdanmark.dk"><img src="../public/svg/envelope-solid-full.svg" alt="Email" /></a>
         </div>
       </div>
 
@@ -74,6 +69,9 @@
 </template>
 
 <style scoped>
+
+
+
 .footer {
   width: 100%;
   background: #2b2b2b;
@@ -152,6 +150,12 @@
   opacity: 1;
 }
 
+.socials img {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
+}
+
 /* TABLET — 2 columns */
 @media (max-width: 900px) {
   .footer-container {
@@ -184,4 +188,6 @@
     justify-content: flex-start;
   }
 }
+
+
 </style>
