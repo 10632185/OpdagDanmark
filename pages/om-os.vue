@@ -8,7 +8,6 @@ const followers = ref(0);
 function count(refVar, target) {
   let current = 0;
   const step = Math.ceil(target / 100);
-
   const interval = setInterval(() => {
     current += step;
     if (current >= target) {
@@ -33,193 +32,177 @@ onMounted(() => {
 
 <template>
 <section class="hero-banner">
-    <img src="../public/img/opdagDanmarkHeroimg.jpeg" alt="">
-
-    <div class="hero-banner-overlay"></div>
-
-    <h1 class="pacifico">Om os</h1>
-    <p>Hvem er vi, og hvad er vores mål?</p>
+  <img src="../public/img/opdagDanmarkHeroimg.jpeg" alt="">
+  <div class="hero-banner-overlay"></div>
+  <h1 class="pacifico">Om os</h1>
+  <p>Hvem er vi, og hvad er vores mål?</p>
 </section>
 
-  <div class="om-os">
-       <section class="numbers">
-      <h2>OpdagDanmark i tal</h2>
-
-      <div class="stats">
+<div class="om-os">
+  <section class="numbers">
+    <div class="numbers-inner">
+      <div class="numbers-left">
+        <h2>OpdagDanmark i tal</h2>
+      </div>
+      <div class="numbers-right">
         <div class="stat">
           <h3>{{ formatNumber(visitors) }}+</h3>
           <p>Besøgende i 2025</p>
         </div>
-
         <div class="stat">
           <h3>{{ formatNumber(downloads) }}+</h3>
           <p>App downloads</p>
         </div>
-
         <div class="stat">
           <h3>{{ formatNumber(followers) }}+</h3>
           <p>Følgere på SoMe</p>
         </div>
       </div>
-    </section>
-    
-    <section class="who">
-      <h2>Hvem er vi?</h2>
+    </div>
+  </section>
 
-      <p>
-        OpdagDanmark er en travel‑tech startup fra Aalborg, grundlagt i 2019. Vi
-        udvikler digitale løsninger, der gør det nemmere at finde vej til alt,
-        hvad Danmark har at tilbyde - fra vandrestier til cykelruter til lokale
-        oplevelser.
-      </p>
-
-      <div class="founders">
-        <div class="founder">
-          <div class="img lise"></div>
-          <p class="name">Lars Stenvits‑Jensen</p>
-          <p class="role">Co‑founder</p>
-        </div>
-
-        <div class="founder">
-          <div class="img sebastian"></div>
-          <p class="name">Sebastian Søndergård</p>
-          <p class="role">Co‑founder</p>
+  <section class="who">
+    <div class="who-inner">
+      <div class="who-left">
+        <h2>Hvem er vi?</h2>
+        <p>
+          OpdagDanmark er en travel‑tech startup fra Aalborg, grundlagt i 2019. Vi
+          udvikler digitale løsninger, der gør det nemmere at finde vej til alt,
+          hvad Danmark har at tilbyde - fra vandrestier til cykelruter til lokale
+          oplevelser.
+        </p>
+      </div>
+      <div class="who-right">
+        <div class="founders">
+          <div class="founder">
+            <div class="img lise"></div>
+            <p class="name">Lau Stacke-Jensen</p>
+            <p class="role">Founder</p>
+          </div>
+          <div class="founder">
+            <div class="img sebastian"></div>
+            <p class="name">Sebastian Søndergård</p>
+            <p class="role">Co‑founder</p>
+          </div>
         </div>
       </div>
-    </section>
- 
-    <section class="vision">
-      <h2>Hvad vi tror på</h2>
+    </div>
+  </section>
 
+  <section class="vision">
+    <div class="vision-inner">
+      <h2>Hvad vi tror på</h2>
       <div class="vision-grid">
         <div class="vision-box">
+          <div class="icon-box">
+            <span class="icon">📊</span>
+          </div>
           <h3>Datadrevne oplevelser</h3>
-          <p>
-            Vi leverer skræddersyet information baseret på brugerens placering
-            og interesser.
-          </p>
+          <p>Vi leverer skræddersyet information baseret på brugerens placering og interesser.</p>
         </div>
-
         <div class="vision-box">
+          <div class="icon-box">
+            <span class="icon">🗄️</span>
+          </div>
           <h3>Data i danske hænder</h3>
           <p>Vi sikrer at data og værdier forbliver i Danmark.</p>
         </div>
-
         <div class="vision-box">
+          <div class="icon-box">
+            <span class="icon">🔗</span>
+          </div>
           <h3>Direkte forbindelse</h3>
           <p>Vi forbinder brugere og turisterhverv uden dyre mellemled.</p>
         </div>
       </div>
-    </section>
-  </div>
-
-  <section class="cta">
-    <div class="cta-container">
-      <div class="cta-video">
-        <iframe
-          src="https://www.youtube.com/embed/Lc_TUZdbRp0"
-          title="YouTube video"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
-
-      <div class="cta-content">
-        <h2>Klar til at opdage Danmark?</h2>
-        <p>
-          Download appen og bliv en del af fællesskabet, der gør det nemmere at
-          udforske Danmark.
-        </p>
-        <button>Kom i gang →</button>
-      </div>
     </div>
   </section>
+</div>
+
+<section class="cta">
+  <div class="cta-container">
+    <div class="cta-video">
+      <iframe
+        src="https://www.youtube.com/embed/Lc_TUZdbRp0"
+        title="YouTube video"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="cta-content">
+      <h2>Klar til at opdage Danmark?</h2>
+      <p>Download appen og bliv en del af fællesskabet, der gør det nemmere at udforske Danmark.</p>
+      <button>Kom i gang →</button>
+    </div>
+  </div>
+</section>
 </template>
 
 <style scoped>
-
 .hero-banner {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-
-    display: flex;
-    align-items: flex-end;
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
 .hero-banner img {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-banner-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.65) 0%,
-            rgba(0, 0, 0, 0.35) 35%,
-            rgba(0, 0, 0, 0.1) 100%
-        );
-
-    box-shadow:
-        inset 0 -120px 120px rgba(0, 0, 0, 0.45),
-        inset 0 40px 60px rgba(0, 0, 0, 0.15);
-
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.1) 100%);
+  box-shadow: inset 0 -120px 120px rgba(0,0,0,0.45), inset 0 40px 60px rgba(0,0,0,0.15);
+  z-index: 1;
 }
 
 .hero-banner h1,
 .hero-banner p {
-    position: relative;
-    z-index: 2;
-
-    color: white;
-    margin-left: 80px;
+  position: relative;
+  z-index: 2;
+  color: white;
+  margin-left: 80px;
 }
 
 .hero-banner h1 {
-    position: absolute;
-    bottom: 70px;
-
-    font-size: 4rem;
-    font-weight: 700;
+  position: absolute;
+  bottom: 70px;
+  font-size: 4rem;
+  font-weight: 700;
 }
 
 .hero-banner p {
-    position: absolute;
-    bottom: 35px;
-
-    font-size: 1.5rem;
-    font-weight: 400;
+  position: absolute;
+  bottom: 35px;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 @media (max-width: 768px) {
-    .hero-banner {
-        height: 350px;
-    }
-
-    .hero-banner h1,
-    .hero-banner p {
-        margin-left: 25px;
-    }
-
-    .hero-banner h1 {
-        font-size: 2.5rem;
-        bottom: 65px;
-    }
-
-    .hero-banner p {
-        font-size: 1rem;
-        bottom: 35px;
-    }
+  .hero-banner {
+    height: 350px;
+  }
+  .hero-banner h1,
+  .hero-banner p {
+    margin-left: 25px;
+  }
+  .hero-banner h1 {
+    font-size: 2.5rem;
+    bottom: 65px;
+  }
+  .hero-banner p {
+    font-size: 1rem;
+    bottom: 35px;
+  }
 }
 
 .om-os {
@@ -227,51 +210,97 @@ onMounted(() => {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 80px;
   padding: 0 20px;
-  font-family: system-ui, sans-serif;
 }
 
-.intro {
-  text-align: center;
+.om-os h2 {
+  color: #0F172A;
 }
 
-.intro h1 {
-  font-size: 2.4rem;
+/* NUMBERS */
+
+.numbers {
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 60px 24px;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  margin-top: 2rem;
+  width: 1200px;
+}
+
+.numbers-inner {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.numbers-left h2 {
+  font-size: 1.75rem;
   font-weight: 700;
 }
 
-.numbers {
-  text-align: center;
-  background: #f3f3f3;
-  padding: 60px 20px;
-  border-radius: 16px;
-  margin-block:1rem;
-}
-
-.stats {
+.numbers-right {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 24px;
+}
+
+.stat {
+  text-align: left;
 }
 
 .stat h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0;
   font-weight: 700;
 }
 
+.stat p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
+
+/* WHO */
+
 .who {
-  text-align: center;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: center;
+}
+
+.who-inner {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.who-left h2 {
+  font-size: 1.75rem;
+  margin-bottom: 12px;
+}
+
+.who-left p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.who-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .founders {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  margin-top: 20px;
+  flex-direction: row;
+  gap: 32px;
 }
 
 .founder {
@@ -279,22 +308,24 @@ onMounted(() => {
 }
 
 .founder .name {
-  font-weight: 700;
-  margin-top: 12px;
-}
-
-.founder .role {
-  color: #666;
+  font-weight: 600;
+  margin-top: 10px;
   font-size: 0.9rem;
 }
 
+.founder .role {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
 .img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
   overflow: hidden;
   position: relative;
-  margin-bottom: 10px;
+  margin: 0 auto;
+  border: 2px solid #d33;
 }
 
 .img::before {
@@ -313,36 +344,67 @@ onMounted(() => {
   background-image: url("https://thispersondoesnotexist.com/");
 }
 
+/* VISION */
+
 .vision {
-  text-align: center;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: center;
+}
+
+.vision-inner {
+  width: 100%;
+  max-width: 900px;
+}
+
+.vision-inner h2 {
+  font-size: 1.75rem;
+  margin-bottom: 24px;
+  text-align: left;
 }
 
 .vision-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
-  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
 }
 
 .vision-box {
-  width: 100%;
-  max-width: 420px;
-  min-height: 240px;
-  background: #f3f3f3;
-  padding: 28px;
-  border-radius: 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: left;
 }
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.75rem;
+  background: #EEF2FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.icon {
+  font-size: 1.1rem;
+}
+
+.vision-box h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.vision-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748B;
+}
+
+/* CTA (unchanged) */
 
 .cta {
   margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  width: 100vw;
+
   background: #111;
   color: white;
   padding: 60px 20px;
@@ -381,35 +443,30 @@ onMounted(() => {
   font-size: 1rem;
 }
 
-/* Desktop Version */
-@media (min-width: 900px) {
-  .hero {
-    height: 420px;
-  }
+/* RESPONSIVE */
 
-  .stats {
+@media (min-width: 900px) {
+  .numbers-inner {
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
   }
 
-  .founders {
+  .numbers-right {
     flex-direction: row;
-    justify-content: center;
     gap: 40px;
   }
 
+  .stat {
+    text-align: right;
+  }
+
+  .who-inner {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
   .vision-grid {
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .vision-box {
-    max-width: 320px;
-    min-height: 260px;
-  }
-
-  .bottom-img {
-    height: 360px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .cta-container {
