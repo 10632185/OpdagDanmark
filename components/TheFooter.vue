@@ -1,11 +1,7 @@
-<script setup>
-</script>
-
 <template>
   <footer class="footer">
     <div class="footer-container">
 
-      <!-- LEFT COLUMNS -->
       <div class="footer-columns">
 
         <div class="col">
@@ -26,7 +22,7 @@
             <li><a href="#">Sydjylland</a></li>
             <li><a href="#">Fyn</a></li>
             <li><a href="#">Sjælland</a></li>
-          </ul>   
+          </ul>
         </div>
 
         <div class="col">
@@ -45,7 +41,6 @@
 
       </div>
 
-      <!-- RIGHT SIDE -->
       <div class="footer-right">
         <div class="company-info">
           <p><strong>OpdagDanmark ApS</strong></p>
@@ -57,10 +52,18 @@
         </div>
 
         <div class="socials">
-          <a target="_blank" href="https://www.facebook.com/opdagdanmark/"><img src="../public/svg/square-facebook-brands-solid-full (1).svg" alt="Facebook" /></a>
-          <a target="_blank" href="https://www.instagram.com/opdagdanmark/"><img src="../public/svg/square-instagram-brands-solid-full (1).svg" alt="Instagram" /></a>
-          <a target="_blank" href="https://www.linkedin.com/company/opdagdanmark/"><img src="../public/svg/linkedin-brands-solid-full.svg" alt="LinkedIn" /></a>
-          <a href="mailto:info@opdagdanmark.dk"><img src="../public/svg/envelope-solid-full.svg" alt="Email" /></a>
+          <a target="_blank" href="https://www.facebook.com/opdagdanmark/">
+            <img src="../public/svg/square-facebook-brands-solid-full (1).svg" />
+          </a>
+          <a target="_blank" href="https://www.instagram.com/opdagdanmark/">
+            <img src="../public/svg/square-instagram-brands-solid-full (1).svg" />
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/company/opdagdanmark/">
+            <img src="../public/svg/linkedin-brands-solid-full.svg" />
+          </a>
+          <a href="mailto:info@opdagdanmark.dk">
+            <img src="../public/svg/envelope-solid-full.svg" />
+          </a>
         </div>
       </div>
 
@@ -69,33 +72,26 @@
 </template>
 
 <style scoped>
-
-
-
 .footer {
   width: 100%;
   background: #2b2b2b;
   color: white;
-  padding: 50px 20px;
-  box-sizing: border-box;
+  padding: 60px 20px;
 }
 
-/* MAIN CONTAINER */
 .footer-container {
   max-width: 1400px;
   margin: 0 auto;
+
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 40px;
+  gap: 60px;
 }
 
-/* DESKTOP — 4 columns */
 .footer-columns {
   display: flex;
-  flex: 1;
   gap: 60px;
-  min-width: 600px;
+  flex: 1;
 }
 
 .col h3,
@@ -123,9 +119,8 @@
   opacity: 1;
 }
 
-/* RIGHT SIDE */
 .footer-right {
-  min-width: 260px;
+  min-width: 240px;
   text-align: right;
 }
 
@@ -141,23 +136,18 @@
 }
 
 .socials img {
-  width: 24px;
-  height: 24px;
-  opacity: 0.8;
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 
 .socials img:hover {
   opacity: 1;
 }
 
-.socials img {
-  width: 32px;
-  height: 32px;
-  filter: brightness(0) invert(1);
-}
-
-/* TABLET — 2 columns */
-@media (max-width: 900px) {
+/* TABLET */
+@media (max-width: 1024px) {
   .footer-container {
     flex-direction: column;
     gap: 50px;
@@ -174,20 +164,18 @@
   }
 }
 
-/* MOBILE — 1 column */
-@media (max-width: 600px) {
+/* MOBILE */
+@media (max-width: 768px) {
   .footer-columns {
     grid-template-columns: 1fr;
   }
 
-  .footer-right {
-    text-align: left;
+  .footer-container {
+    gap: 40px;
   }
 
   .socials {
     justify-content: flex-start;
   }
 }
-
-
 </style>
