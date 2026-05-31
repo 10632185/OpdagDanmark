@@ -105,7 +105,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
     <section>
       <img
         class="forsideKlubDanmarkImg"
-        src="../public/img/klubDanmark.png"
+        src="../public/img/klubDanmark.webp"
         alt=""
       />
 
