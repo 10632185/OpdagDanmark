@@ -338,11 +338,11 @@ onMounted(() => {
 }
 
 .img.lise::before {
-  background-image: url("https://thispersondoesnotexist.com/");
+  background-image: url("../public/img/OpdagDanmarkMedlemmer/LauOpdagDanmark.png");
 }
 
 .img.sebastian::before {
-  background-image: url("https://thispersondoesnotexist.com/");
+  background-image: url("../public/img/OpdagDanmarkMedlemmer/SebastianOpdagDanmark.png");
 }
 
 /* VISION */

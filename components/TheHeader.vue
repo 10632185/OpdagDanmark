@@ -1,26 +1,31 @@
 <script setup>
-const menuOpen = ref(false)
-const guidesOpen = ref(false)
-const desktopGuidesOpen = ref(false)
+const menuOpen = ref(false);
+const guidesOpen = ref(false);
+const desktopGuidesOpen = ref(false);
 
-const toggleMenu = () => (menuOpen.value = !menuOpen.value)
-const toggleGuides = () => (guidesOpen.value = !guidesOpen.value)
-const toggleDesktopGuides = () => (desktopGuidesOpen.value = !desktopGuidesOpen.value)
+const toggleMenu = () => (menuOpen.value = !menuOpen.value);
+const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
+const toggleDesktopGuides = () =>
+  (desktopGuidesOpen.value = !desktopGuidesOpen.value);
 
 onMounted(() => {
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.desktop-dropdown')) {
-      desktopGuidesOpen.value = false
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".desktop-dropdown")) {
+      desktopGuidesOpen.value = false;
     }
-  })
-})
+  });
+});
 </script>
 
 <template>
   <header class="header">
     <div class="logo-area">
       <NuxtLink to="/">
-        <img src="../public/img/opdagdanmark_logo.png" alt="Logo" class="logo" />
+        <img
+          src="../public/img/opdagdanmark_logo.png"
+          alt="Logo"
+          class="logo"
+        />
       </NuxtLink>
     </div>
 
@@ -31,11 +36,16 @@ onMounted(() => {
 
       <div class="desktop-dropdown">
         <button class="desktop-dropdown-btn" @click.stop="toggleDesktopGuides">
-          Guides <span class="arrow" :class="{ open: desktopGuidesOpen }">▼</span>
+          Guides
+          <span class="arrow" :class="{ open: desktopGuidesOpen }">▼</span>
         </button>
-        <div class="desktop-dropdown-content" :class="{ open: desktopGuidesOpen }">
-          <NuxtLink to="/guides/landsdele" @click="desktopGuidesOpen = false">Landsdele</NuxtLink>
-          <NuxtLink to="/guides/temaer" @click="desktopGuidesOpen = false">Temaer</NuxtLink>
+        <div
+          class="desktop-dropdown-content"
+          :class="{ open: desktopGuidesOpen }"
+        >
+          <NuxtLink to="/guides/landsdele" @click="desktopGuidesOpen = false"
+            >Landsdele</NuxtLink
+          >
         </div>
       </div>
 
@@ -73,7 +83,6 @@ onMounted(() => {
         </button>
         <ul v-if="guidesOpen" class="dropdown-content">
           <li><NuxtLink to="/guides/landsdele">Landsdele</NuxtLink></li>
-          <li><NuxtLink to="/guides/temaer">Temaer</NuxtLink></li>
         </ul>
       </li>
 
@@ -281,7 +290,6 @@ onMounted(() => {
   font-weight: 700;
   text-decoration: none;
 }
-
 
 .mobile-menu.open {
   right: 0;
