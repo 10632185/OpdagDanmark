@@ -28,7 +28,7 @@ const { data: oplevelser, pending, error } = await useAsyncData(
       })
     )
   }
-)
+);
 </script>
 
 <template>
@@ -48,7 +48,7 @@ const { data: oplevelser, pending, error } = await useAsyncData(
           class="card-link"
         >
           <ExperienceCard
-            :title="OP.acf?.overskrift"
+            :title="OP.acf?.overskift"
             :location="OP.acf?.adresse"
             :image="OP.billede"
           />
@@ -95,10 +95,9 @@ const { data: oplevelser, pending, error } = await useAsyncData(
   border: 0;
 }
 
-/* GRID OF CARDS */
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   padding: 16px;
 }
