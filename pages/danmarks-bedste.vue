@@ -173,11 +173,13 @@ const {
 
 .vote-card {
   width: 100%;
-  background: white;
+  background: #DD3333;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   transition: 0.25s ease;
+  text-decoration: none;
+  text-align: center;
 }
 
 .vote-card:hover {
@@ -204,6 +206,7 @@ const {
 
 .vote-card-content {
   padding: 20px;
+  color: white;
 }
 
 .vote-card-content h3 {
@@ -214,7 +217,7 @@ const {
 
 .vote-dates {
   margin-top: 8px;
-  color: #555;
+  color: white;
   font-size: 1rem;
 }
 </style>

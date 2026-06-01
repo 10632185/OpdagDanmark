@@ -431,7 +431,7 @@ onMounted(() => {
 .cta-content button {
   margin-top: 16px;
   padding: 12px 24px;
-  background: #ff7a00;
+  background: #DD3333;
   border: none;
   border-radius: 8px;
   color: white;

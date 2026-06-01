@@ -61,14 +61,12 @@ onMounted(() => {
     </div>
   </header>
 
-  <!-- BLURRED BACKDROP -->
   <div
     class="menu-backdrop"
     :class="{ open: menuOpen }"
     @click="menuOpen = false"
   ></div>
 
-  <!-- MOBILE MENU -->
   <nav class="mobile-menu" :class="{ open: menuOpen }">
     <ul>
       <li><NuxtLink to="/">Forside</NuxtLink></li>
@@ -89,7 +87,6 @@ onMounted(() => {
       <li><NuxtLink to="/om-os">Om Os</NuxtLink></li>
     </ul>
 
-    <!-- BOTTOM CTA BUTTON -->
     <NuxtLink to="/klubdanmark" class="cta-bottom">KlubDanmark</NuxtLink>
   </nav>
 </template>
@@ -106,6 +103,10 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eee;
+}
+
+.desktop-dropdown-btn{
+  font-family: "Montserrat", sans-serif;
 }
 
 .logo-area {
@@ -281,8 +282,8 @@ onMounted(() => {
 }
 
 .cta-bottom {
-  background: #d33;
-  color: white;
+  background: #DD3333;
+  color: white !important;
   text-align: center;
   padding: 14px 0;
   border-radius: 50px;
@@ -290,6 +291,7 @@ onMounted(() => {
   font-weight: 700;
   text-decoration: none;
 }
+
 
 .mobile-menu.open {
   right: 0;
