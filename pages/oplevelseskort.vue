@@ -44,7 +44,7 @@ const { data: oplevelser, pending, error } = await useAsyncData(
         <NuxtLink
           v-for="OP in [...oplevelser].reverse()"
           :key="OP.id"
-          :to="`/oplevelser/${OP.id}`"
+          :to="``"
           class="card-link"
         >
           <ExperienceCard
