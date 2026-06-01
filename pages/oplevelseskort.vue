@@ -2,7 +2,6 @@
 import FilterBar from "../components/FilterBar.vue"
 import ExperienceCard from "../components/ExperienceCard.vue"
 
-// FETCH OPLEVELSER + RESOLVE ACF IMAGE
 const { data: oplevelser, pending, error } = await useAsyncData(
   "oplevelser",
   async () => {
@@ -51,6 +50,7 @@ const { data: oplevelser, pending, error } = await useAsyncData(
             :title="OP.acf?.overskift"
             :location="OP.acf?.adresse"
             :image="OP.billede"
+            :region="OP.acf?.region"
           />
         </NuxtLink>
       </div>
