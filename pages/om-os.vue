@@ -66,23 +66,29 @@ onMounted(() => {
       <div class="who-left">
         <h2>Hvem er vi?</h2>
         <p>
-          OpdagDanmark er en travel‑tech startup fra Aalborg, grundlagt i 2019. Vi
+          OpdagDanmark er en travel-tech startup fra Aalborg, grundlagt i 2019. Vi
           udvikler digitale løsninger, der gør det nemmere at finde vej til alt,
           hvad Danmark har at tilbyde - fra vandrestier til cykelruter til lokale
           oplevelser.
         </p>
       </div>
+
       <div class="who-right">
         <div class="founders">
           <div class="founder">
-            <div class="img lise"></div>
+            <div class="img">
+              <img src="../public/img/OpdagDanmarkMedlemmer/LauOpdagDanmark.png" alt="Lau Stacke-Jensen">
+            </div>
             <p class="name">Lau Stacke-Jensen</p>
             <p class="role">Founder</p>
           </div>
+
           <div class="founder">
-            <div class="img sebastian"></div>
+            <div class="img">
+              <img src="../public/img/OpdagDanmarkMedlemmer/SebastianOpdagDanmark.png" alt="Sebastian Søndergård">
+            </div>
             <p class="name">Sebastian Søndergård</p>
-            <p class="role">Co‑founder</p>
+            <p class="role">Co-founder</p>
           </div>
         </div>
       </div>
@@ -95,12 +101,12 @@ onMounted(() => {
       <div class="vision-grid">
         <div class="vision-box">
           <div class="icon-box">
-           <span class="icon"><img src="/svg/chart-line-solid-full.svg" alt=""></span>
-
+            <span class="icon"><img src="/svg/chart-line-solid-full.svg" alt=""></span>
           </div>
           <h3>Datadrevne oplevelser</h3>
           <p>Vi leverer skræddersyet information baseret på brugerens placering og interesser.</p>
         </div>
+
         <div class="vision-box">
           <div class="icon-box">
             <span class="icon"><img src="/svg/server-solid-full.svg" alt=""></span>
@@ -108,6 +114,7 @@ onMounted(() => {
           <h3>Data i danske hænder</h3>
           <p>Vi sikrer at data og værdier forbliver i Danmark.</p>
         </div>
+
         <div class="vision-box">
           <div class="icon-box">
             <span class="icon"><img src="/svg/link-solid-full.svg" alt=""></span>
@@ -192,14 +199,17 @@ onMounted(() => {
   .hero-banner {
     height: 350px;
   }
+
   .hero-banner h1,
   .hero-banner p {
     margin-left: 25px;
   }
+
   .hero-banner h1 {
     font-size: 2.5rem;
     bottom: 65px;
   }
+
   .hero-banner p {
     font-size: 1rem;
     bottom: 35px;
@@ -218,8 +228,6 @@ onMounted(() => {
 .om-os h2 {
   color: #0F172A;
 }
-
-/* NUMBERS */
 
 .numbers {
   background: #F8FAFC;
@@ -266,8 +274,6 @@ onMounted(() => {
   font-size: 0.85rem;
 }
 
-/* WHO */
-
 .who {
   background: #FFFFFF;
   display: flex;
@@ -295,7 +301,7 @@ onMounted(() => {
 
 .who-right {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .founders {
@@ -324,28 +330,16 @@ onMounted(() => {
   height: 96px;
   border-radius: 999px;
   overflow: hidden;
-  position: relative;
   margin: 0 auto;
   border: 2px solid #d33;
 }
 
-.img::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-
-.img.lise::before {
-  background-image: url("../public/img/OpdagDanmarkMedlemmer/LauOpdagDanmark.png");
-}
-
-.img.sebastian::before {
-  background-image: url("../public/img/OpdagDanmarkMedlemmer/SebastianOpdagDanmark.png");
-}
-
-/* VISION */
 
 .vision {
   background: #FFFFFF;
@@ -392,7 +386,6 @@ onMounted(() => {
   filter: brightness(0) saturate(100%);
 }
 
-
 .vision-box h3 {
   margin: 0 0 6px;
   font-size: 1rem;
@@ -405,11 +398,8 @@ onMounted(() => {
   color: #64748B;
 }
 
-/* CTA (unchanged) */
-
 .cta {
   margin-left: calc(50% - 50vw);
-
   background: #111;
   color: white;
   padding: 60px 20px;
@@ -447,8 +437,6 @@ onMounted(() => {
   color: white;
   font-size: 1rem;
 }
-
-/* RESPONSIVE */
 
 @media (min-width: 900px) {
   .numbers-inner {
@@ -491,6 +479,114 @@ onMounted(() => {
 
   .cta-video iframe {
     height: 360px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .om-os {
+    gap: 60px;
+  }
+
+  .numbers {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 50px 30px;
+    text-align: center;
+  }
+
+  .numbers-inner {
+    max-width: 100%;
+  }
+
+  .numbers-inner h3,
+  .numbers-inner p {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .numbers-right {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .who-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .vision-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-container {
+    gap: 40px;
+  }
+
+  .cta-video iframe {
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .om-os {
+    gap: 50px;
+    padding: 0 16px;
+  }
+
+  .numbers {
+    width: 100%;
+    padding: 40px 20px;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .numbers-left h2 {
+    font-size: 1.5rem;
+  }
+
+  .numbers-right {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat h3 {
+    font-size: 2rem;
+  }
+
+  .who-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .who-right {
+    justify-content: center;
+  }
+
+  .vision-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .vision-inner h2,
+  .who-left h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta {
+    padding: 50px 20px;
+  }
+
+  .cta-video iframe {
+    height: 220px;
+  }
+
+  .cta-content h2 {
+    font-size: 1.5rem;
   }
 }
 </style>
