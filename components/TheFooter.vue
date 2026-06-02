@@ -146,7 +146,6 @@
   opacity: 1;
 }
 
-/* TABLET */
 @media (max-width: 1024px) {
   .footer-container {
     flex-direction: column;
@@ -164,7 +163,6 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .footer-columns {
     grid-template-columns: 1fr;

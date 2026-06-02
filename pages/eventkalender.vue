@@ -129,14 +129,12 @@ const resetFilters = () => {
   padding: 40px;
 }
 
-/* DESKTOP LAYOUT */
 .layout {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 40px;
 }
 
-/* SIDEBAR */
 .sidebar {
   border-right: 1px solid #eee;
   padding-right: 20px;
@@ -187,14 +185,12 @@ const resetFilters = () => {
   color: #000;
 }
 
-/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 25px;
 }
 
-/* CARD */
 .card {
   position: relative;
   background: #fff;
@@ -247,7 +243,6 @@ const resetFilters = () => {
   margin-top: 4px;
 }
 
-/* TABLET RESPONSIVE */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 200px 1fr;
@@ -259,7 +254,6 @@ const resetFilters = () => {
   }
 }
 
-/* MOBILE RESPONSIVE */
 @media (max-width: 600px) {
   .events-page {
     padding: 20px;

@@ -195,26 +195,7 @@ onMounted(() => {
   font-weight: 400;
 }
 
-@media (max-width: 768px) {
-  .hero-banner {
-    height: 350px;
-  }
 
-  .hero-banner h1,
-  .hero-banner p {
-    margin-left: 25px;
-  }
-
-  .hero-banner h1 {
-    font-size: 2.5rem;
-    bottom: 65px;
-  }
-
-  .hero-banner p {
-    font-size: 1rem;
-    bottom: 35px;
-  }
-}
 
 .om-os {
   max-width: 1100px;
@@ -529,6 +510,26 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+
+  .hero-banner {
+    height: 350px;
+  }
+
+  .hero-banner h1,
+  .hero-banner p {
+    margin-left: 25px;
+  }
+
+  .hero-banner h1 {
+    font-size: 2.5rem;
+    bottom: 65px;
+  }
+
+  .hero-banner p {
+    font-size: 1rem;
+    bottom: 35px;
+  }
+
   .om-os {
     gap: 50px;
     padding: 0 16px;

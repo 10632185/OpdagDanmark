@@ -3,7 +3,7 @@ import { ref } from "vue"
 import FilterBar from "../components/FilterBar.vue"
 import ExperienceCard from "../components/ExperienceCard.vue"
 
-const mapQuery = ref("Denmark") // what the map searches for (and pins)
+const mapQuery = ref("Denmark")
 
 const { data: oplevelser, pending, error } = await useAsyncData(
   "oplevelser",
@@ -76,14 +76,12 @@ const pingAddress = (address) => {
 </template>
 
 <style scoped>
-/* MAIN LAYOUT */
 .layout {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* LEFT SIDE — CARDS */
 .left {
   width: 45%;
   overflow-y: auto;
@@ -91,7 +89,6 @@ const pingAddress = (address) => {
   padding-bottom: 20px;
 }
 
-/* RIGHT SIDE — MAP */
 .right {
   width: 55%;
   height: 100%;
@@ -111,7 +108,6 @@ const pingAddress = (address) => {
   padding: 16px;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column-reverse;

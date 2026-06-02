@@ -237,7 +237,6 @@ const { data: kdtilbud, pending, error } = await useAsyncData(
   margin-bottom: 0;
 }
 
-/* TABLET */
 @media (max-width: 1024px) {
   .pageWrapper {
     margin-left: 3rem;
@@ -255,7 +254,6 @@ const { data: kdtilbud, pending, error } = await useAsyncData(
   }
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .pageWrapper {
     margin-left: 1.5rem;

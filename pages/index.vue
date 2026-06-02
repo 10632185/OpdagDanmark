@@ -630,8 +630,6 @@ text-decoration: none;
     font-size: 1.6rem;
   }
 
-  /* HERO */
-
   .hero-banner {
     height: 350px;
   }
@@ -651,8 +649,6 @@ text-decoration: none;
     bottom: 45px;
     width: 90%;
   }
-
-  /* CARD */
 
   .forsideCardImage {
     height: 210px;
