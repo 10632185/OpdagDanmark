@@ -1,23 +1,28 @@
 <script setup>
+//useAsyncData bruger vi i nuxt til at hente vores data server-side, hvor cache resultatet fra "kdtilbud" er vores key-navn, som nuxt bruger til tracking.
 const { data: kdtilbud, pending, error } = await useAsyncData(
   "kdtilbud",
   async () => {
+    //Her henter vi alle "kdtilbud" fra vores WordPress REST API, hvor vi definerer "per_page=100", som sørger for den får alle vores posts med, da WordPress som standard kun henter 10.
     const tilbud = await $fetch(
       "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/kdtilbud?per_page=100",
     )
 
+    // Vi bruger her promise.all fordi vi skal vise alt data på en gang, og derfor skal vente på at alle vores billeder er hentet, før vi kan vise noget. Hvis vi ikke brugte promise.all ville vi ende i en situation hvor nogle af vores tilbud bliver vist uden billede, fordi de ikke er færdige med at hente endnu.
     return await Promise.all(
       tilbud.map(async (tilbudItem) => {
         let billede = null
 
+        // Her tjekker vi om der er et billede-id i ACF.
         if (tilbudItem.acf?.billede) {
+          // Så henter vi billedet fra WordPress endpointet for media, hvor vi bruger det billede-id vi fandt i ACF til at hente det specifikke billede.
           const media = await $fetch(
             `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${tilbudItem.acf.billede}`,
           )
-
+          // Her gemmer vi selve billedets URL, så det kan bruges i frontend.
           billede = media.source_url
         }
-
+        // Returnerer hele objektet og tilføjer billedet.
         return {
           ...tilbudItem,
           billede,

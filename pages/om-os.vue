@@ -1,29 +1,39 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+// Definerer variabler som skal holde styr på vores tal for besøgende, downloads og følgere, som vi vil animere op til deres respektive mål.
 const visitors = ref(0);
 const downloads = ref(0);
 const followers = ref(0);
 
+// Her er vores funktion der laver en "tælle" animation. Den starter fra 0, og tæller op imod det bestemte target (kommer senere).
 function count(refVar, target) {
   let current = 0;
+  // Her siger vi hvor meget tallet skal øges med hver gang.
   const step = Math.ceil(target / 100);
+
+  // Bestemmer hvor hurtigt tallet skal tælle op ved at sætte et interval, som kører hver 20 millisekund.
   const interval = setInterval(() => {
     current += step;
+    // Hvis vi når målet stopper vi og sætter værdien præcist til det.
     if (current >= target) {
       refVar.value = target;
       clearInterval(interval);
     } else {
+      // Hvis ikke opdaterer vi igen og animationen fortsætter.
       refVar.value = current;
     }
   }, 20);
 }
-
+// Her er en funktion der formaterer vores tal med punktum som sepererer ved tusinder, så det er nemmere at læse for brugeren. F.eks. vil 2200000 blive vist som 2.200.000.
+// Da vi havde problemer med hvordan vi kunne det, er nedenstående funktion inspireret af denne StackOverflow tråd: https://stackoverflow.com/questions/2901102/how-to-format-a-number-with-commas-as-thousands-separators-in-javascript
 function formatNumber(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+// onMounted betyder her at koden først kører når komponentet er loadet. Ved det undgår vi at en person med langsomt net kommer ind hvor den allerede er hel eller halvejs færdig med animationen.
 onMounted(() => {
+  // Definerer vores tre count funktioner for hver af vores tal, hvor vi sætter det endelige mål for hver. Altså siger vi den skal tælle, samt hvad den skal tælle til. I dette tilfælde tæller vi op til 2.200.000 for besøgende, 170.000 for downloads og 85.000 for følgere.
   count(visitors, 2200000);
   count(downloads, 170000);
   count(followers, 85000);
