@@ -1,12 +1,22 @@
 <script setup>
 import { ref } from "vue";
+// import { ref } betyder at vi henter ref-funktionen fra Vue. ref bruges til at lave reaktive værdier, som Vue automatisk opdaterer i den visuelle frontend del, når deres indhold ændrer sig.
 
+
+// menuOpen er en reaktiv variabel, der starter som false. ref(false) betyder: "lav en reaktiv boolean-værdi, der lige nu er false"..value bruges til at læse/ændre værdien inde i ref'en.
 const menuOpen = ref(false);
+
+// guidesOpen fungerer på samme måde, men styrer om 'Guides'-dropdownen er åben.
 const guidesOpen = ref(false);
 
+
+// toggleMenu er en funktion, der skifter menuOpen mellem true og false. !menuOpen.value betyder: "modsatte af den nuværende værdi" så hvis menuOpen.value er false  bliver den true, og derefter omvendt iforhold til knappens værdi.
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
+
+// toggleGuides gør præcis det samme, men for guidesOpen. Det er en simpel måde at lave en "åbn/luk" funktion.
 const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
 </script>
+
 
 <template>
   <header class="header">

@@ -1,34 +1,43 @@
 <script setup>
+// useAsyncData bruges i Nuxt til at hente data asynkront, før siden vises. Her henter vi data fra vores WordPress endpointet "danmarksbedste".
+
 const {
   data: danmarksbedste,
   pending,
   error,
 } = await useAsyncData("danmarksbedste", async () => {
+  // 'data' bliver omdøbt til 'danmarksbedste' for nemmere brug i templaten. Her er pending = true mens data hentes og error indeholder "fejl" hvis fetch fejler.
+
+  // Først henter vi selve listen af "danmarksbedste" posts fra WordPress API'et.
   const items = await $fetch(
     "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/danmarksbedste",
   );
 
+  // Promise.all bruges til at vente på ALLE async opgaver i .map bliver færdige, så vi kan returnere en komplet liste med billeder og badges til vores cards.
   return await Promise.all(
+    // items.map kører igennem hvert element i listen. For hvert element (DB) henter vi billede og et badge hvis de findes igennem vores wordpress fetching.
     items.map(async (DB) => {
       let billede = null;
       let badge = null;
-
+      // billede starter som null, indtil vi finder et media-id og det samme køre for badge som også starter som null. Hvis der findes et billede i ACF feltet, henter vi media-data fra WordPress.
       if (DB.acf?.billede) {
         const media = await $fetch(
           `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${DB.acf.billede}`,
         );
-
-        billede = media.source_url;
+// Vi gemmer selve billedets URL
+        billede = media.source_url; 
       }
 
+      // Samme logik, men for badge feltet.
       if (DB.acf?.badge) {
         const media = await $fetch(
           `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${DB.acf.badge}`,
         );
-
-        badge = media.source_url;
+// Gemmer badge-billedets URL
+        badge = media.source_url; 
       }
 
+      // Vi returnerer et nyt objekt, der indeholder alle originale data fra DB (via ...DB som betyder lig indholdet fra DB før på ... plads) som er det hentede billede og hentede badge. Spread-operatoren  ( som er ...) kopierer alle felter fra DB ind i objektet.
       return {
         ...DB,
         billede,
@@ -173,14 +182,14 @@ const {
 }
 
 @media (max-width: 768px) {
-.vote-grid {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
+  .vote-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 .vote-card {
   width: 100%;
-  background: #DD3333;
+  background: #dd3333;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
