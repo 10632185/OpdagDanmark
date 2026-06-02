@@ -133,8 +133,11 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
       </p>
 
       <div class="forsideButtonWrapper">
-        <button class="forsideButtonPrimary">Bliv Medlem</button>
+        <NuxtLink to="/klubdanmark" class="forsideButtonPrimary">
+          Bliv Medlem
+        </NuxtLink>
       </div>
+
       <h2 class="sectionTitle">Få blandt andet disse tilbud</h2>
 
       <div class="sliderWrapper">
@@ -451,7 +454,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 .forsideButtonPrimary,
 .forsideButtonSecondary {
   padding: 16px 34px;
-
+text-decoration: none;
   border-radius: 14px;
 
   border: none;

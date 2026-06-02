@@ -28,7 +28,7 @@ onMounted(async () => {
         }
 
         return {
-          title: OP.acf?.overskrift || "Ukendt titel",
+          title: OP.acf?.overskift || "Ukendt titel",
           region: OP.acf?.region || "Ukendt region",
           category: OP.acf?.kategori || "Ukendt kategori",
           date: OP.acf?.dato || "Ukendt dato",
@@ -129,12 +129,14 @@ const resetFilters = () => {
   padding: 40px;
 }
 
+/* DESKTOP LAYOUT */
 .layout {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 40px;
 }
 
+/* SIDEBAR */
 .sidebar {
   border-right: 1px solid #eee;
   padding-right: 20px;
@@ -185,12 +187,14 @@ const resetFilters = () => {
   color: #000;
 }
 
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 25px;
 }
 
+/* CARD */
 .card {
   position: relative;
   background: #fff;
@@ -198,7 +202,6 @@ const resetFilters = () => {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: 0.2s;
-  width: 400px;
 }
 
 .card:hover {
@@ -242,5 +245,43 @@ const resetFilters = () => {
   font-size: 13px;
   opacity: 0.7;
   margin-top: 4px;
+}
+
+/* TABLET RESPONSIVE */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  .events-page {
+    padding: 20px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card img {
+    height: 200px;
+  }
 }
 </style>

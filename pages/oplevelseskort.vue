@@ -1,6 +1,9 @@
 <script setup>
+import { ref } from "vue"
 import FilterBar from "../components/FilterBar.vue"
 import ExperienceCard from "../components/ExperienceCard.vue"
+
+const mapQuery = ref("Denmark") // what the map searches for (and pins)
 
 const { data: oplevelser, pending, error } = await useAsyncData(
   "oplevelser",
@@ -27,12 +30,16 @@ const { data: oplevelser, pending, error } = await useAsyncData(
       })
     )
   }
-);
+)
+
+const pingAddress = (address) => {
+  if (!address) return
+  mapQuery.value = address
+}
 </script>
 
 <template>
   <div class="layout">
-
     <div class="left">
       <FilterBar />
 
@@ -40,11 +47,11 @@ const { data: oplevelser, pending, error } = await useAsyncData(
       <p v-else-if="error">Kunne ikke hente data</p>
 
       <div v-else class="grid">
-        <NuxtLink
+        <div
           v-for="OP in [...oplevelser].reverse()"
           :key="OP.id"
-          :to="``"
           class="card-link"
+          @click="pingAddress(OP.acf?.adresse)"
         >
           <ExperienceCard
             :title="OP.acf?.overskift"
@@ -52,7 +59,7 @@ const { data: oplevelser, pending, error } = await useAsyncData(
             :image="OP.billede"
             :region="OP.acf?.region"
           />
-        </NuxtLink>
+        </div>
       </div>
     </div>
 
@@ -60,7 +67,9 @@ const { data: oplevelser, pending, error } = await useAsyncData(
       <iframe
         loading="lazy"
         allowfullscreen
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2246767.983!2d8.0!3d56.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465253b3e3c5b0a1%3A0xdeb5c4f1a5c2e3f!2sDenmark!5e0!3m2!1sen!2sdk!4v1712345678901"
+        :src="`https://www.google.com/maps?q=${encodeURIComponent(
+          mapQuery
+        )}&z=6&output=embed`"
       ></iframe>
     </div>
   </div>

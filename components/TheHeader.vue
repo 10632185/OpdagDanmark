@@ -1,31 +1,18 @@
 <script setup>
+import { ref } from "vue";
+
 const menuOpen = ref(false);
 const guidesOpen = ref(false);
-const desktopGuidesOpen = ref(false);
 
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
-const toggleDesktopGuides = () =>
-  (desktopGuidesOpen.value = !desktopGuidesOpen.value);
-
-onMounted(() => {
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".desktop-dropdown")) {
-      desktopGuidesOpen.value = false;
-    }
-  });
-});
 </script>
 
 <template>
   <header class="header">
     <div class="logo-area">
       <NuxtLink to="/">
-        <img
-          src="../public/img/opdagdanmark_logo.png"
-          alt="Logo"
-          class="logo"
-        />
+        <img src="../public/img/opdagdanmark_logo.png" alt="Logo" class="logo" />
       </NuxtLink>
     </div>
 
@@ -35,17 +22,13 @@ onMounted(() => {
       <NuxtLink to="/danmarks-bedste">Danmarks Bedste</NuxtLink>
 
       <div class="desktop-dropdown">
-        <button class="desktop-dropdown-btn" @click.stop="toggleDesktopGuides">
+        <button class="desktop-dropdown-btn">
           Guides
-          <span class="arrow" :class="{ open: desktopGuidesOpen }">▼</span>
+          <span class="arrow">▼</span>
         </button>
-        <div
-          class="desktop-dropdown-content"
-          :class="{ open: desktopGuidesOpen }"
-        >
-          <NuxtLink to="/guides/landsdele" @click="desktopGuidesOpen = false"
-            >Landsdele</NuxtLink
-          >
+
+        <div class="desktop-dropdown-content">
+          <NuxtLink to="/guides/landsdele">Landsdele</NuxtLink>
         </div>
       </div>
 
@@ -56,16 +39,12 @@ onMounted(() => {
       <NuxtLink to="/klubdanmark" class="cta-btn">KlubDanmark</NuxtLink>
     </div>
 
-    <div class="burger" @click="toggleMenu">
+    <div class="burger" :class="{ open: menuOpen }" @click="toggleMenu">
       <span></span><span></span><span></span>
     </div>
   </header>
 
-  <div
-    class="menu-backdrop"
-    :class="{ open: menuOpen }"
-    @click="menuOpen = false"
-  ></div>
+  <div class="menu-backdrop" :class="{ open: menuOpen }" @click="menuOpen = false"></div>
 
   <nav class="mobile-menu" :class="{ open: menuOpen }">
     <ul>
@@ -79,6 +58,7 @@ onMounted(() => {
           Guides
           <span class="arrow" :class="{ open: guidesOpen }">▼</span>
         </button>
+
         <ul v-if="guidesOpen" class="dropdown-content">
           <li><NuxtLink to="/guides/landsdele">Landsdele</NuxtLink></li>
         </ul>
@@ -105,10 +85,6 @@ onMounted(() => {
   border-bottom: 1px solid #eee;
 }
 
-.desktop-dropdown-btn{
-  font-family: "Montserrat", sans-serif;
-}
-
 .logo-area {
   flex: 1;
   display: flex;
@@ -125,13 +101,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   height: 100%;
-}
-
-.cta-area {
-  flex: 1;
-  display: none;
-  justify-content: flex-end;
-  align-items: center;
 }
 
 .desktop-menu a,
@@ -159,6 +128,13 @@ onMounted(() => {
   font-weight: 600;
 }
 
+.cta-area {
+  flex: 1;
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .cta-btn {
   background: #d33;
   color: white !important;
@@ -168,22 +144,26 @@ onMounted(() => {
   font-size: 0.9rem;
   text-decoration: none;
   transition: background 0.18s ease;
-  white-space: nowrap;
 }
 
 .cta-btn:hover {
   background: #b82828;
 }
 
-/* DESKTOP DROPDOWN */
 .desktop-dropdown {
   position: relative;
+}
+
+.desktop-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .desktop-dropdown-content {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   background: white;
   border: 1px solid #eee;
@@ -195,7 +175,8 @@ onMounted(() => {
   z-index: 100;
 }
 
-.desktop-dropdown-content.open {
+.desktop-dropdown:hover .desktop-dropdown-content,
+.desktop-dropdown-content:hover {
   display: flex;
 }
 
@@ -219,11 +200,10 @@ onMounted(() => {
   transition: transform 0.2s ease;
 }
 
-.arrow.open {
+.desktop-dropdown:hover .arrow {
   transform: rotate(180deg);
 }
 
-/* BURGER */
 .burger {
   width: 1.75rem;
   height: 1.375rem;
@@ -231,15 +211,28 @@ onMounted(() => {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .burger span {
   height: 3px;
   background: black;
   border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-/* BACKDROP */
+.burger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
 .menu-backdrop {
   position: fixed;
   top: 0;
@@ -259,7 +252,6 @@ onMounted(() => {
   pointer-events: all;
 }
 
-/* MOBILE MENU */
 .mobile-menu {
   position: fixed;
   right: -100%;
@@ -275,26 +267,14 @@ onMounted(() => {
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
+.mobile-menu.open {
+  right: 0;
+}
+
 .mobile-menu ul {
   list-style: none;
   padding: 0;
   margin: 0 0 2rem 0;
-}
-
-.cta-bottom {
-  background: #DD3333;
-  color: white !important;
-  text-align: center;
-  padding: 14px 0;
-  border-radius: 50px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-
-.mobile-menu.open {
-  right: 0;
 }
 
 .mobile-menu li {
@@ -305,7 +285,7 @@ onMounted(() => {
 .dropdown-btn {
   font-size: 1.35rem;
   font-weight: 600;
-  color: #000000;
+  color: #000;
   text-decoration: none;
   display: block;
 }
@@ -330,7 +310,17 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 
-/* DESKTOP BREAKPOINT */
+.cta-bottom {
+  background: #DD3333;
+  color: white !important;
+  text-align: center;
+  padding: 14px 0;
+  border-radius: 50px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 @media (min-width: 900px) {
   .burger {
     display: none;

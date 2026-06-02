@@ -154,6 +154,7 @@ const {
   .hero-banner h1 {
     font-size: 2.5rem;
     bottom: 65px;
+    margin-bottom: 1.2rem;
   }
 
   .hero-banner p {
@@ -169,6 +170,12 @@ const {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+.vote-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 }
 
 .vote-card {
