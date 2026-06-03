@@ -94,7 +94,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
   <div class="pageWrapper">
     <section class="sectionSpacing">
-      <h2 class="sectionTitle">Produkter</h2>
+      <h2 class="sectionTitle">Tilbud</h2>
 
       <div class="forsideProducts">
         <p v-if="pending">Loading produkter...</p>
@@ -190,7 +190,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
           class="klubDanmarkSlider"
         >
           <SwiperSlide v-for="tilbud in kdtilbud" :key="tilbud.id">
-            <div class="forsideCard">
+            <div class="forsideCards">
               <img
                 v-if="tilbud.billede"
                 :src="tilbud.billede"
@@ -269,7 +269,6 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
 .sectionTitle {
   font-size: 2rem;
-  margin-bottom: 30px;
 }
 
 .hero-banner {
@@ -331,6 +330,18 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 }
 
 .forsideCard {
+  background: white;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+  transition: 0.3s ease;
+}
+
+.forsideCards {
   background: white;
 
   border-radius: 24px;
@@ -408,7 +419,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
 .klubDanmarkSlider {
   width: 100%;
-  padding-bottom: 70px;
+  padding-block: 3rem;
 }
 
 .klubDanmarkSlider .swiper-slide {
@@ -485,8 +496,13 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
   color: white;
 }
 
+a.forsideButtonPrimary{
+  text-align: center;
+}
+
 .forsideButtonPrimary:hover {
   opacity: 0.85;
+    background-color: #962323;
 }
 
 .forsideButtonSecondary {
@@ -607,6 +623,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
 .newsletterButton:hover {
   opacity: 0.85;
+  background-color: #962323;
 }
 
 @media (max-width: 1024px) {

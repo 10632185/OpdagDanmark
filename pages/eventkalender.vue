@@ -5,68 +5,46 @@ useHead({
 })
 
 import { ref, onMounted, computed } from "vue";
-//ref opretter en variabel, som Vue holder øje med. Værdien ændre sig og opdaterer Vue automatisk hvor det efter bliver vist på skærmen. onMounted er en funktion der køres, når komponenten er klar og synlig i browseren. computed er en værdi der automatisk genberegnes, hver gang de data den bygger på ændrer sig.
 
-// activeRegion og activeCategory holder styr på hvilke filtre brugeren har valgt. "Alle" betyder at der ikke filtreres på den kategori.
 const activeRegion = ref("Alle");
 const activeCategory = ref("Alle");
 
-// events bliver listen med alle oplevelser hentet fra WordPress. loading bruges til at vise en loader mens data hentes. error bruges hvis noget går galt under fetch og der ikke kan displayes.
 const events = ref([]);
 const loading = ref(true);
 const error = ref(false);
 
-// regionCounts og categoryCounts bliver objekter der tæller hvor mange events der findes i hver region og kategori og det samme kan man gøre for masse andre filtrerings typer.
 const regionCounts = ref({});
 const categoryCounts = ref({});
 
 const formatDate = (raw) => {
-  // Først tjekker vi om der er en dato. Hvis raw fx er null, undefined eller tom, giver det ingen mening at formatere den. Derfor returnerer vi bare værdien som den er.
   if (!raw) return raw;
-
-  // Her tjekker vi om datoen indeholder bindestreger. Hvis ja, antager vi at formatet er "YYYY-MM-DD". Det er et meget almindeligt format i API'er når man fetcher dem ned.
   if (raw.includes("-")) {
-    // split("-") deler datoen op i tre dele som er y = år, m = måned, d = dag. Eksempel: "2024-06-03" bliver den lavet om til ["2024", "06", "03"].
     const [y, m, d] = raw.split("-");
-
-    // Vi returnerer datoen i formatet "DD.MM.YYYY", som er det format vi gerne vil vise i UI'et.
     return `${d}.${m}.${y}`;
   }
-
-  // slice bruges til at tage bestemte dele af strengen:
-  // slice(0,4) = de første 4 tegn → år
-  // slice(4,6) = tegn 4-6 → måned
-  // slice(6,8) = tegn 6-8 → dag
   const y = raw.slice(0, 4);
   const m = raw.slice(4, 6);
   const d = raw.slice(6, 8);
-
-  // Til sidst returnerer vi datoen i samme format som ovenfor.
   return `${d}.${m}.${y}`;
 };
 
-// onMounted kører når komponenten er klar og her henter vi data fra WordPress.
 onMounted(async () => {
   try {
-    // Henter alle oplevelser fra WordPress API'et igennem vores V2/oplevelser link som displayer vores JSON fil.
     const items = await $fetch(
       "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/oplevelser",
     );
 
-    // Promise.all sikrer at vi venter på ALLE async-opgaver i map. Vi mapper hvert event (OP hvilket er oplevelser) og henter billede hvis det findes igennem image.
     const resolved = await Promise.all(
       items.map(async (OP) => {
         let image = null;
 
-        // Hvis der findes et billede-id i ACF-feltet, henter vi selve billedet.
         if (OP.acf?.billede) {
           const media = await $fetch(
             `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${OP.acf.billede}`,
           );
-          image = media.source_url; // Gemmer billedets URL
+          image = media.source_url;
         }
 
-        // Her returnerer vi et nyt objekt med kun de felter vi skal bruge. Hvis et felt mangler i ACF, får det en fallback værdi som vi ihar sat til og være ukendt...
         return {
           title: OP.acf?.overskift || "Ukendt titel",
           region: OP.acf?.region || "Ukendt region",
@@ -78,32 +56,25 @@ onMounted(async () => {
       }),
     );
 
-    // Her sætter vi datoen ind efter nyeste dato først().
     events.value = resolved.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // rCounts og cCounts bruges til at tælle hvor mange events der findes i både region og kategori.
     const rCounts = {};
     const cCounts = {};
 
-    // For hvert event bliver det lagt +1 til tælleren for eventets region og kategori. Hvis regionen/kategorien ikke findes endnu, start fra 0.
     for (const e of events.value) {
       rCounts[e.region] = (rCounts[e.region] || 0) + 1;
       cCounts[e.category] = (cCounts[e.category] || 0) + 1;
     }
 
-    // Gemmer tællingerne i de reaktive variabler.
     regionCounts.value = rCounts;
     categoryCounts.value = cCounts;
   } catch {
-    // Hvis noget går galt under fetch, sætter vi error til true.
     error.value = true;
   } finally {
-    // Uanset hvad, stopper vi loading når alt er færdigt.
     loading.value = false;
   }
 });
 
-// filteredEvents er en computed (genberegnet) værdi. Den filtrerer events baseret på activeRegion og activeCategory. Hvis brugeren har valgt "Alle", filtreres der ikke på den del.
 const filteredEvents = computed(() =>
   events.value.filter(
     (e) =>
@@ -112,7 +83,25 @@ const filteredEvents = computed(() =>
   ),
 );
 
-// resetFilters nulstiller begge filtre tilbage til "Alle".
+// ⭐ FIX: Category counts update based on selected region
+const filteredCategoryCounts = computed(() => {
+  const counts = {};
+
+  // Start all categories at 0
+  for (const cat in categoryCounts.value) {
+    counts[cat] = 0;
+  }
+
+  // Count only events inside selected region
+  for (const e of events.value) {
+    if (activeRegion.value === "Alle" || e.region === activeRegion.value) {
+      counts[e.category] = (counts[e.category] || 0) + 1;
+    }
+  }
+
+  return counts;
+});
+
 const resetFilters = () => {
   activeRegion.value = "Alle";
   activeCategory.value = "Alle";
@@ -131,7 +120,7 @@ const resetFilters = () => {
             v-for="(count, region) in regionCounts"
             :key="region"
             :class="{ active: activeRegion === region }"
-            @click="activeRegion = region"
+            @click="activeRegion = activeRegion === region ? 'Alle' : region"
           >
             {{ region }} <span>{{ count }}</span>
           </li>
@@ -140,10 +129,10 @@ const resetFilters = () => {
         <h3>TYPER</h3>
         <ul>
           <li
-            v-for="(count, cat) in categoryCounts"
+            v-for="(count, cat) in filteredCategoryCounts"
             :key="cat"
             :class="{ active: activeCategory === cat }"
-            @click="activeCategory = cat"
+            @click="activeCategory = activeCategory === cat ? 'Alle' : cat"
           >
             {{ cat }} <span>{{ count }}</span>
           </li>
@@ -171,6 +160,7 @@ const resetFilters = () => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .events-page {

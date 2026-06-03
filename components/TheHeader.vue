@@ -146,7 +146,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
 }
 
 .cta-btn {
-  background: #d33;
+  background: #dd3333;
   color: white !important;
   padding: 8px 18px;
   border-radius: 50px;
@@ -157,7 +157,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
 }
 
 .cta-btn:hover {
-  background: #b82828;
+  background: #962323;
 }
 
 .desktop-dropdown {
@@ -168,6 +168,7 @@ const toggleGuides = () => (guidesOpen.value = !guidesOpen.value);
   display: flex;
   align-items: center;
   gap: 4px;
+   font-family: "Montserrat", sans-serif;
 }
 
 .desktop-dropdown-content {
