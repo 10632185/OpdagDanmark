@@ -466,22 +466,17 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
   display: flex;
   justify-content: center;
   gap: 20px;
-
   margin-block: 30px;
 }
 
 .forsideButtonPrimary,
 .forsideButtonSecondary {
   padding: 16px 34px;
-text-decoration: none;
+  text-decoration: none;
   border-radius: 14px;
-
   border: none;
-
   cursor: pointer;
-
   font-size: 1rem;
-
   transition: 0.25s ease;
 }
 
