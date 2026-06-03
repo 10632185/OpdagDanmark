@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Om Os - OpdagDanmark'
+})
+
 import { ref, onMounted } from "vue";
 
 // Definerer variabler som skal holde styr på vores tal for besøgende, downloads og følgere, som vi vil animere op til deres respektive mål.

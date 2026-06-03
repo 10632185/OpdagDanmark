@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Danmarks Bedste - OpdagDanmark'
+})
+
 // useAsyncData bruges i Nuxt til at hente data asynkront, før siden vises. Her henter vi data fra vores WordPress endpointet "danmarksbedste".
 
 const {

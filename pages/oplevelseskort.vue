@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Oplevelseskort - OpdagDanmark'
+})
+
 import { ref } from "vue"
 import FilterBar from "../components/FilterBar.vue"
 import ExperienceCard from "../components/ExperienceCard.vue"

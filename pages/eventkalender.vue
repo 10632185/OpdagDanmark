@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Eventkalender - OpdagDanmark'
+})
+
 import { ref, onMounted, computed } from "vue";
 //ref opretter en variabel, som Vue holder øje med. Værdien ændre sig og opdaterer Vue automatisk hvor det efter bliver vist på skærmen. onMounted er en funktion der køres, når komponenten er klar og synlig i browseren. computed er en værdi der automatisk genberegnes, hver gang de data den bygger på ændrer sig.
 

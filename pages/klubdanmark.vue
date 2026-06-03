@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Klub Danmark - OpdagDanmark'
+})
+
 //useAsyncData bruger vi i nuxt til at hente vores data server-side, hvor cache resultatet fra "kdtilbud" er vores key-navn, som nuxt bruger til tracking.
 const { data: kdtilbud, pending, error } = await useAsyncData(
   "kdtilbud",

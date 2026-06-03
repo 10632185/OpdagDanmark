@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Danmarks Bedste - OpdagDanmark'
+})
+
 const route = useRoute();
 // useRoute() giver adgang til nuværende URL og dens parametre. Her bruger vi den til at hente ID'et fra URL'en (fx /danmarksbedste/12).
 

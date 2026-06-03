@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'Landsdele - OpdagDanmark'
+})
+
 import { onMounted } from "vue";
 
 // onMounted for at lave en reveal effekt på vores landsdele kort, hvor vi bruger IntersectionObserver API til at tjekke om kortet er i viewporten, og hvis det er, så tilføjer vi en class der laver en animation på kortet.

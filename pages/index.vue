@@ -1,4 +1,9 @@
 <script setup>
+
+useHead({
+  title: 'OpdagDanmark'
+})
+
 // Vi starter ud med at importerer Swiper, for at kunne lave en carousel slider.
 import { Swiper, SwiperSlide } from "swiper/vue";
 
