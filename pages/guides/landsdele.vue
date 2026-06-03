@@ -52,7 +52,7 @@ onMounted(() => {
           naturoplevelser i den rå og til tider barske nordjyske natur.
         </p>
 
-        <button>Gå til</button>
+        <button><NuxtLink to="/guides/nordjylland">Gå til</NuxtLink></button>
       </div>
 
       <div class="landsdele-image">
@@ -66,11 +66,11 @@ onMounted(() => {
 
         <p>Sjælland byder på fantastiske oplevelser for både store og små.</p>
 
-        <button>Gå til</button>
+        <button><NuxtLink to="/guides/sjaelland">Gå til</NuxtLink></button>
       </div>
 
       <div class="landsdele-image">
-        <img src="../../public/img/sjaelland.webp" alt="" />
+        <img src="../../public/img/landsdele/sjaelland/sjaelland3.jpg" alt="" />
       </div>
     </div>
 
@@ -80,11 +80,11 @@ onMounted(() => {
 
         <p>På Fyn kan du opleve alt lige fra betagende naturoplevelser.</p>
 
-        <button>Gå til</button>
+        <button><NuxtLink to="/guides/fyn">Gå til</NuxtLink></button>
       </div>
 
       <div class="landsdele-image">
-        <img src="../../public/img/fyn.webp" alt="" />
+        <img src="../../public/img/landsdele/fyn/fyn2.jpg" alt="" />
       </div>
     </div>
 
@@ -94,7 +94,7 @@ onMounted(() => {
 
         <p>Midtjylland byder på et væld af oplevelser for både store og små.</p>
 
-        <button>Gå til</button>
+        <button><NuxtLink to="/guides/midtjylland">Gå til</NuxtLink></button>
       </div>
 
       <div class="landsdele-image">
@@ -108,7 +108,7 @@ onMounted(() => {
 
         <p>Sydjylland byder på fantastisk natur og dramatisk historie.</p>
 
-        <button>Gå til</button>
+        <button><NuxtLink to="/guides/sydjylland">Gå til</NuxtLink></button>
       </div>
 
       <div class="landsdele-image">
@@ -243,12 +243,16 @@ onMounted(() => {
   cursor: pointer;
   color: #f9f9f9;
   background-color: #dd3333;
-
   backdrop-filter: blur(10px);
 
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
+}
+
+.landsdele-content button a {
+text-decoration: none;
+color: white;
 }
 
 .landsdele-content button:hover {

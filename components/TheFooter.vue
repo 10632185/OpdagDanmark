@@ -17,11 +17,11 @@
         <div class="col">
           <h3>Guides</h3>
           <ul>
-            <li><a href="#">Nordjylland</a></li>
-            <li><a href="#">Midtjylland</a></li>
-            <li><a href="#">Sydjylland</a></li>
-            <li><a href="#">Fyn</a></li>
-            <li><a href="#">Sjælland</a></li>
+            <li><NuxtLink to="/guides/nordjylland">Nordjylland</NuxtLink></li>
+            <li><NuxtLink to="/guides/sjaelland">Sjælland</NuxtLink></li>
+            <li><NuxtLink to="/guides/fyn">Fyn</NuxtLink></li>
+            <li><NuxtLink to="/guides/midtjylland">Midtjylland</NuxtLink></li>
+            <li><NuxtLink to="/guides/sydjylland">Sydjylland</NuxtLink></li>
           </ul>
         </div>
 
