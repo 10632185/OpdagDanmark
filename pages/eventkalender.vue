@@ -15,6 +15,31 @@ const error = ref(false);
 const regionCounts = ref({});
 const categoryCounts = ref({});
 
+const formatDate = (raw) => {
+  // Først tjekker vi om der er en dato. Hvis raw fx er null, undefined eller tom, giver det ingen mening at formatere den. Derfor returnerer vi bare værdien som den er.
+  if (!raw) return raw;
+
+  // Her tjekker vi om datoen indeholder bindestreger. Hvis ja, antager vi at formatet er "YYYY-MM-DD". Det er et meget almindeligt format i API'er når man fetcher dem ned.
+  if (raw.includes("-")) {
+    // split("-") deler datoen op i tre dele som er y = år, m = måned, d = dag. Eksempel: "2024-06-03" bliver den lavet om til ["2024", "06", "03"].
+    const [y, m, d] = raw.split("-");
+
+    // Vi returnerer datoen i formatet "DD.MM.YYYY", som er det format vi gerne vil vise i UI'et.
+    return `${d}.${m}.${y}`;
+  }
+
+  // slice bruges til at tage bestemte dele af strengen:
+  // slice(0,4) = de første 4 tegn → år
+  // slice(4,6) = tegn 4-6 → måned
+  // slice(6,8) = tegn 6-8 → dag
+  const y = raw.slice(0, 4);
+  const m = raw.slice(4, 6);
+  const d = raw.slice(6, 8);
+
+  // Til sidst returnerer vi datoen i samme format som ovenfor.
+  return `${d}.${m}.${y}`;
+};
+
 // onMounted kører når komponenten er klar og her henter vi data fra WordPress.
 onMounted(async () => {
   try {
@@ -48,8 +73,8 @@ onMounted(async () => {
       }),
     );
 
-    // Vi vender rækkefølgen så nyeste events kommer først ved hjælp af og bruge en .reverse().
-    events.value = resolved.reverse();
+    // Her sætter vi datoen ind efter nyeste dato først().
+    events.value = resolved.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // rCounts og cCounts bruges til at tælle hvor mange events der findes i både region og kategori.
     const rCounts = {};
@@ -128,7 +153,7 @@ const resetFilters = () => {
         <p v-else-if="error">Kunne ikke hente data</p>
 
         <div v-else v-for="e in filteredEvents" :key="e.title" class="card">
-          <div class="date-badge">{{ e.date }}</div>
+          <div class="date-badge">{{ formatDate(e.date) }}</div>
           <img :src="e.image" alt="" />
           <div class="content">
             <span class="region">{{ e.region }}</span>
