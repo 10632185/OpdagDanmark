@@ -1,6 +1,8 @@
 <script setup>
 const route = useRoute();
+// useRoute() giver adgang til nuværende URL og dens parametre. Her bruger vi den til at hente ID'et fra URL'en (fx /danmarksbedste/12).
 
+// useAsyncData henter data asynkront baseret på ID'et i URL'en. data bliver derefter omdøbt til "post", så det er nemmere at bruge i template. vores pending er sat til at være true mens data hentes. error viser hvis noget går galt og refresh til funktionen der kan genindlæse data manuelt.
 const {
   data: post,
   pending,
@@ -8,15 +10,19 @@ const {
   refresh,
 } = await useAsyncData(
   () => `danmarksbedste-${route.params.id}`,
+  // Unik nøgle baseret på ID til undersiden (fx /danmarksbedste/74) hvilket er vores underside til pizza 2026.
   async () => {
     const id = route.params.id;
+    // Henter ID fra URL'en
 
+    // Fetcher det enkelte "danmarksbedste" post fra WordPress API'et.
     const item = await $fetch(
       `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/danmarksbedste/${id}`,
     );
 
     let billede = null;
 
+    // Hvis der findes et billede i ACF feltet, henter vi selve billedets URL hvor vi bruger "if" til hvis den har så fetch.
     if (item.acf?.billede) {
       const media = await $fetch(
         `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${item.acf.billede}`,
@@ -24,18 +30,24 @@ const {
       billede = media.source_url;
     }
 
+    // Spread-operatoren (...item) kopierer alle felter fra WordPress-objektet og derefter tilføjer "billedet" som et ekstra felt.
     return { ...item, billede };
   },
 );
 
+// watchEffect kører hver gang "post" ændrer sig. Her bruges det til debugging for at se om brodtekst faktisk findes (ingen brødtekst grundet til wordpres Æ Ø Å).
 watchEffect(() => {
   console.log("brodtekst:", post.value?.acf?.brodtekst);
   console.log("full acf:", post.value?.acf);
 });
 
+// Popup til afstemning
 const showVotePopup = ref(false);
+// showVotePopup viser om popup'en er synlig
 const selectedPizza = ref("");
+// SelectedPizza gemmer hvilken pizza brugeren har valgt
 
+// Her viser vi en liste over pizzasteder brugeren kan stemme på som vi har sat fast og ikke dynamisk.
 const pizzaPlaces = [
   "Azzurra Nordkraft",
   "SanGiovanni",
@@ -45,18 +57,21 @@ const pizzaPlaces = [
   "Gorm's Aalborg",
 ];
 
+// submitVote kører når brugeren trykker "Stem" og hvis ingen pizza er valgt, sker der ingenting ellers reloades siden ( hvilket er en meget simpel løsning).
 const submitVote = () => {
   if (!selectedPizza.value) return;
 
   window.location.reload();
 };
 
+// Popup til nominering. Her viser vi om nominerings popup vises
 const showNominatePopup = ref(false);
+// Her gemmer vi brugerens nominering ved hjælp af og bruge ref("") opretter en reaktiv værdi i Vue, som starter som en tom tekststreng. "" betyder at den aktuelle værdi er en tom string.
 const nominatedPizza = ref("");
 
+// submitNomination kører når brugeren indsender en nominering. Hvis feltet er tomt, sker der ingenting ellers reloades siden hvis der bliver valgt en værdi.
 const submitNomination = () => {
   if (!nominatedPizza.value.trim()) return;
-
   window.location.reload();
 };
 </script>
@@ -104,35 +119,19 @@ const submitNomination = () => {
       <div class="vote-popup">
         <h2>Stem på Danmarks bedste pizzasted</h2>
 
-        <div
-          v-for="pizza in pizzaPlaces"
-          :key="pizza"
-          class="vote-option"
-        >
+        <div v-for="pizza in pizzaPlaces" :key="pizza" class="vote-option">
           <label>
-            <input
-              v-model="selectedPizza"
-              type="radio"
-              :value="pizza"
-            />
+            <input v-model="selectedPizza" type="radio" :value="pizza" />
             {{ pizza }}
           </label>
         </div>
 
         <div class="vote-popup-buttons">
-          <button
-            class="popup-cancel"
-            @click="showVotePopup = false"
-          >
+          <button class="popup-cancel" @click="showVotePopup = false">
             Luk
           </button>
 
-          <button
-            class="popup-submit"
-            @click="submitVote"
-          >
-            Stem
-          </button>
+          <button class="popup-submit" @click="submitVote">Stem</button>
         </div>
       </div>
     </div>
@@ -153,17 +152,11 @@ const submitNomination = () => {
         />
 
         <div class="vote-popup-buttons">
-          <button
-            class="popup-cancel"
-            @click="showNominatePopup = false"
-          >
+          <button class="popup-cancel" @click="showNominatePopup = false">
             Luk
           </button>
 
-          <button
-            class="popup-submit"
-            @click="submitNomination"
-          >
+          <button class="popup-submit" @click="submitNomination">
             Nominer
           </button>
         </div>
