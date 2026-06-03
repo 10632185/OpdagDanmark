@@ -4,8 +4,8 @@
 
     <div class="hero-banner-overlay"></div>
 
-    <h1 class="pacifico">Guides - Landsdele</h1>
-    <p>Find tusinde af oplevelser og begivenheder her!</p>
+    <h1 class="pacifico">Guides - Temaer</h1>
+    <p>Noget specifit du er på udkig efter?</p>
 </section>
 </template>
 

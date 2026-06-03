@@ -1,3 +1,3 @@
 <template>
-    <h1>guides</h1>
+    <h1>Guides main page</h1>
 </template>
