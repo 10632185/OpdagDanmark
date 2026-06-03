@@ -18,6 +18,11 @@ useHead({
 })
 </script>
 
+<!-- ALL IMAGES FROM - https://www.opdagdanmark.dk/ -->
+<!-- ALL ICONS FROM - https://fontawesome.com/-->
+<!-- ALL FONTS FROM - https://fonts.google.com/ -->
+<!-- LAST ACCESSED - 04/06/2026 -->
+
 <template>
   <div>
     <TheHeader />

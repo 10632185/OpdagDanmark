@@ -71,6 +71,11 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 });
 </script>
 
+<!-- ALL IMAGES FROM - https://www.opdagdanmark.dk/ -->
+<!-- ALL ICONS FROM - https://fontawesome.com/-->
+<!-- ALL FONTS FROM - https://fonts.google.com/ -->
+<!-- LAST ACCESSED - 04/06/2026 -->
+
 <template>
   <section class="hero-banner">
     <img src="../public/img/opdagDanmarkHeroimg.jpeg" alt="" />
