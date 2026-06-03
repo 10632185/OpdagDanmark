@@ -94,7 +94,7 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
   <div class="pageWrapper">
     <section class="sectionSpacing">
-      <h2 class="sectionTitle">Tilbud</h2>
+      <h2 class="sectionTitle">Produkter</h2>
 
       <div class="forsideProducts">
         <p v-if="pending">Loading produkter...</p>
