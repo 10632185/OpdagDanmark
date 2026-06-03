@@ -7,10 +7,10 @@
         <div class="col">
           <h3>Aktuelt</h3>
           <ul>
-            <li><a href="#">Oplevelseskort</a></li>
-            <li><a href="#">KlubDanmark</a></li>
-            <li><a href="#">Danmarks Bedste</a></li>
-            <li><a href="#">Om os</a></li>
+            <li><NuxtLink to="/oplevelseskort">Oplevelseskort</NuxtLink></li>
+            <li><NuxtLink to="/klubdanmark">Klub Danmark</NuxtLink></li>
+            <li><NuxtLink to="/danmarks-bedste">Danmarks Bedste</NuxtLink></li>
+            <li><NuxtLink to="/om-os">Om os</NuxtLink></li>
           </ul>
         </div>
 
