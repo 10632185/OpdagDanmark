@@ -1,12 +1,16 @@
 <script setup>
+// Vi starter ud med at importerer Swiper, for at kunne lave en carousel slider.
 import { Swiper, SwiperSlide } from "swiper/vue";
 
+//Her importerer vi Swipers standard css og styling$ for navigation og pagination, som vi skal bruge i vores slider.
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+// Her importerer vi de funktioner som vi skal ruge i slideren. Navigation = knapper til frem og tilbage, Pagination = Små prikker og Autoplay = Automatisk skift mellem slides.
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
+//Her henter vi produkter fra WordPress REST API, hvor vi bruger useAsyncData til at hente data server-side. "produkter" er vores cache key, som Nuxt bruger til tracking af dataen. I vores fetch funktion henter vi først alle produkter, og derefter laver vi et ekstra loop for at hente billede URL'en for hver produkt, da det billede ikke er inkluderet i det første API kald.
 const {
   data: produkter,
   pending,
@@ -16,18 +20,22 @@ const {
     "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/produkter",
   );
 
+  // Vi bruger promise.all fordi vi skal hente ekstra billeddata til hvert produkt.
   return await Promise.all(
     produkter.map(async (produkt) => {
       let billede = null;
 
+      //Her tjekker vi om det individuelle produkt har et billede-id gemt i ACF.
       if (produkt.acf?.billede) {
+        //Her henter vi billedeinformationen fra WordPress Media API.
         const media = await $fetch(
           `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${produkt.acf.billede}`,
         );
-
+        //Gemmer selve billedet så vi kan kalde det efterfølgende.
         billede = media.source_url;
       }
 
+      //Returnerer produktet og billedet.
       return {
         ...produkt,
         billede,
@@ -36,6 +44,7 @@ const {
   );
 });
 
+// Nedenstående kode er mere eller mindre det samme som ovenover.
 const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
   const tilbud = await $fetch(
     "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/kdtilbud",

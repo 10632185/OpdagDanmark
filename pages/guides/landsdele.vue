@@ -1,11 +1,14 @@
 <script setup>
 import { onMounted } from "vue";
 
+// onMounted for at lave en reveal effekt på vores landsdele kort, hvor vi bruger IntersectionObserver API til at tjekke om kortet er i viewporten, og hvis det er, så tilføjer vi en class der laver en animation på kortet.
 onMounted(() => {
+  //Finder alle elementer med klassen "landsdele-reveal", som er dem vi gerne vil lave effekten på.
   const cards = document.querySelectorAll(".landsdele-reveal");
-
+  // Nu bruger vi intersectionobserver til at opdage når voes elementer kommer ind i viewporten. Altså når brugeren scroller ned forbi.
   const observer = new IntersectionObserver(
     (entries) => {
+      //For hver entry (element) tjekker vi om den er i viewporten, hvis den så er det, så giver vi den classen "landsdele-active", som så laver animationen.
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("landsdele-active");
@@ -13,10 +16,11 @@ onMounted(() => {
       });
     },
     {
+      // threshhold bestemmer hvor meget af elementet der skal være synligt for animationen aktiverer.
       threshold: 0.2,
     },
   );
-
+    //Her starter vi observationen på hvert card.
   cards.forEach((card) => {
     observer.observe(card);
   });
