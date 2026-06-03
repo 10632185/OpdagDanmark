@@ -1,32 +1,42 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
+//ref opretter en variabel, som Vue holder øje med. Værdien ændre sig og opdaterer Vue automatisk hvor det efter bliver vist på skærmen. onMounted er en funktion der køres, når komponenten er klar og synlig i browseren. computed er en værdi der automatisk genberegnes, hver gang de data den bygger på ændrer sig.
 
+// activeRegion og activeCategory holder styr på hvilke filtre brugeren har valgt. "Alle" betyder at der ikke filtreres på den kategori.
 const activeRegion = ref("Alle");
 const activeCategory = ref("Alle");
 
+// events bliver listen med alle oplevelser hentet fra WordPress. loading bruges til at vise en loader mens data hentes. error bruges hvis noget går galt under fetch og der ikke kan displayes.
 const events = ref([]);
 const loading = ref(true);
 const error = ref(false);
 
+// regionCounts og categoryCounts bliver objekter der tæller hvor mange events der findes i hver region og kategori og det samme kan man gøre for masse andre filtrerings typer.
 const regionCounts = ref({});
 const categoryCounts = ref({});
 
+// onMounted kører når komponenten er klar og her henter vi data fra WordPress.
 onMounted(async () => {
   try {
+    // Henter alle oplevelser fra WordPress API'et igennem vores V2/oplevelser link som displayer vores JSON fil.
     const items = await $fetch(
       "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/oplevelser",
     );
 
+    // Promise.all sikrer at vi venter på ALLE async-opgaver i map. Vi mapper hvert event (OP hvilket er oplevelser) og henter billede hvis det findes igennem image.
     const resolved = await Promise.all(
       items.map(async (OP) => {
         let image = null;
+
+        // Hvis der findes et billede-id i ACF-feltet, henter vi selve billedet.
         if (OP.acf?.billede) {
           const media = await $fetch(
             `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${OP.acf.billede}`,
           );
-          image = media.source_url;
+          image = media.source_url; // Gemmer billedets URL
         }
 
+        // Her returnerer vi et nyt objekt med kun de felter vi skal bruge. Hvis et felt mangler i ACF, får det en fallback værdi som vi ihar sat til og være ukendt...
         return {
           title: OP.acf?.overskift || "Ukendt titel",
           region: OP.acf?.region || "Ukendt region",
@@ -38,25 +48,32 @@ onMounted(async () => {
       }),
     );
 
+    // Vi vender rækkefølgen så nyeste events kommer først ved hjælp af og bruge en .reverse().
     events.value = resolved.reverse();
 
+    // rCounts og cCounts bruges til at tælle hvor mange events der findes i både region og kategori.
     const rCounts = {};
     const cCounts = {};
 
+    // For hvert event bliver det lagt +1 til tælleren for eventets region og kategori. Hvis regionen/kategorien ikke findes endnu, start fra 0.
     for (const e of events.value) {
       rCounts[e.region] = (rCounts[e.region] || 0) + 1;
       cCounts[e.category] = (cCounts[e.category] || 0) + 1;
     }
 
+    // Gemmer tællingerne i de reaktive variabler.
     regionCounts.value = rCounts;
     categoryCounts.value = cCounts;
   } catch {
+    // Hvis noget går galt under fetch, sætter vi error til true.
     error.value = true;
   } finally {
+    // Uanset hvad, stopper vi loading når alt er færdigt.
     loading.value = false;
   }
 });
 
+// filteredEvents er en computed (genberegnet) værdi. Den filtrerer events baseret på activeRegion og activeCategory. Hvis brugeren har valgt "Alle", filtreres der ikke på den del.
 const filteredEvents = computed(() =>
   events.value.filter(
     (e) =>
@@ -65,6 +82,7 @@ const filteredEvents = computed(() =>
   ),
 );
 
+// resetFilters nulstiller begge filtre tilbage til "Alle".
 const resetFilters = () => {
   activeRegion.value = "Alle";
   activeCategory.value = "Alle";
