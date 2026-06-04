@@ -429,10 +429,16 @@ onMounted(() => {
   padding: 12px 24px;
   background: #DD3333;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   color: white;
   font-size: 1rem;
 }
+
+.cta-content button:hover{
+background-color: #932626;
+cursor: pointer;
+}
+
 
 @media (min-width: 900px) {
   .numbers-inner {
