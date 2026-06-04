@@ -121,4 +121,18 @@
   border-radius: 12px;
 }
 
+@media (max-width: 768px) {
+.nordjylland-hero h1{
+  margin-left: 1rem;
+  font-weight: 200;
+  margin-bottom: 0.8rem;
+}
+
+.nordjylland-hero p {
+  margin-left: 1.2rem;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+}
+
 </style>
