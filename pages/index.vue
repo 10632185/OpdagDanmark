@@ -232,23 +232,52 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
           Danmark, afstemninger med Danmarks Bedste og meget mere.
         </p>
 
-        <form class="newsletterForm">
-          <div class="newsletterRow">
-            <input type="text" placeholder="Navn" />
+<form class="newsletterForm">
+  <div class="newsletterRow">
+    <input 
+      type="text" 
+      placeholder="Navn" 
+      required 
+      pattern="[A-Za-zÆØÅæøå\s-]{2,}"
+      title="Indtast et gyldigt navn"
+    />
 
-            <input type="text" placeholder="Efternavn" />
-          </div>
+    <input 
+      type="text" 
+      placeholder="Efternavn" 
+      required 
+      pattern="[A-Za-zÆØÅæøå\s-]{2,}"
+      title="Indtast et gyldigt efternavn"
+    />
+  </div>
 
-          <input type="email" placeholder="Email" />
+  <input 
+    type="email" 
+    placeholder="Email" 
+    required
+  />
 
-          <input type="text" placeholder="Telefon (+45...)" />
+  <input 
+    type="tel" 
+    placeholder="Telefon (+45...)" 
+    required
+    pattern="(\+45\s?)?\d{8}"
+    title="Indtast et gyldigt telefonnummer"
+  />
 
-          <input type="text" placeholder="Postnummer" />
+  <input 
+    type="text" 
+    placeholder="Postnummer" 
+    required
+    pattern="\d{4}"
+    title="Indtast et gyldigt postnummer"
+  />
 
-          <button type="submit" class="newsletterButton">
-            Tilmeld nyhedsbrev
-          </button>
-        </form>
+  <button type="submit" class="newsletterButton">
+    Tilmeld nyhedsbrev
+  </button>
+</form>
+
       </div>
     </section>
   </div>
