@@ -1,8 +1,7 @@
 <script setup>
-
 useHead({
-  title: 'OpdagDanmark'
-})
+  title: "OpdagDanmark",
+});
 
 // Vi starter ud med at importerer Swiper, for at kunne lave en carousel slider.
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -340,17 +339,15 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
 
   transition: 0.3s ease;
 }
-
 .forsideCards {
   background: white;
-
   border-radius: 24px;
-
   overflow: hidden;
-
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-
   transition: 0.3s ease;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
 }
 
 .forsideCard:hover {
@@ -496,13 +493,13 @@ const { data: kdtilbud } = await useAsyncData("kdtilbud", async () => {
   color: white;
 }
 
-a.forsideButtonPrimary{
+a.forsideButtonPrimary {
   text-align: center;
 }
 
 .forsideButtonPrimary:hover {
   opacity: 0.85;
-    background-color: #962323;
+  background-color: #962323;
 }
 
 .forsideButtonSecondary {
@@ -649,6 +646,11 @@ a.forsideButtonPrimary{
 }
 
 @media (max-width: 768px) {
+  .custom-prev,
+  .custom-next {
+    display: none !important;
+  }
+
   .pageWrapper {
     padding-inline: 16px;
   }

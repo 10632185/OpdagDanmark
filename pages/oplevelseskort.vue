@@ -124,6 +124,16 @@ const pingAddress = (address) => {
   cursor: pointer;
 }
 
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+
 @media (max-width: 768px) {
   .layout {
     flex-direction: column-reverse;

@@ -103,10 +103,10 @@ const { data: kdtilbud, pending, error } = await useAsyncData(
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-
+  align-items: center;
   margin-top: 40px;
   margin-bottom: 40px;
-}
+ }
 
 .klubDanmarkIntro {
   max-width: 750px;

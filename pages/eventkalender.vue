@@ -1,51 +1,69 @@
 <script setup>
 
+// useHead bruges til at sætte metadata in på siden, hvilket vil vise "Eventkalender - OpdagDanmark" i browser fanen.
 useHead({
   title: 'Eventkalender - OpdagDanmark'
 })
 
 import { ref, onMounted, computed } from "vue";
+// ref er reaktive værdier (Vue opdaterer UI når .value ændrer sig). onMounted kører når komponenten er færdig med at loade og computed viser hvilke værdier der automatisk opdateres når deres afhængigheder ændrer sig.
 
+// Her filtrere vi for region og kategori og hvor "Alle" betyder ingen filtrering er sat til.
 const activeRegion = ref("Alle");
 const activeCategory = ref("Alle");
 
+// events viser alle oplevelser hentet fra WordPress hvor loading viser true mens data hentes og error viser det modsatte hvis noget går galt.
 const events = ref([]);
 const loading = ref(true);
 const error = ref(false);
 
+// regionCounts og categoryCounts tæller hvor mange events der findes i hver region og kategori.
 const regionCounts = ref({});
 const categoryCounts = ref({});
 
+  // Første tjek spørg om der overhovedet findes en dato? Hvis raw fx er null, undefined eller en tom string, giver det ingen mening at prøve at formatere den og derfor returnerer vi bare værdien som den er.
 const formatDate = (raw) => {
   if (!raw) return raw;
+
+  // Hvis datoen har bindestreger vil den formatere det fra "YYYY-MM-DD".
   if (raw.includes("-")) {
-    const [y, m, d] = raw.split("-");
-    return `${d}.${m}.${y}`;
+    const [y, m, d] = raw.split("-"); 
+    // Her bruger vi .split til og splitte datoen i år, måned, dag.
+    return `${d}.${m}.${y}`; 
+    // Også vil vi så få det returneret i dansk format til "DD-MM-YYYY".
   }
+
+  // Ellers antager vi formatet "YYYYMMDD". Den måde som .Slice fungere på er at den tager det lange 8 cifret tal og "slicer/skær" det på fra de førstm 0-4 tal og derfra 4-6 tal som er 2 og de sidste 2 fra 6-8 tal... det vil så blive returneret som "DD-MM-YYYY" i en reverse order.
   const y = raw.slice(0, 4);
   const m = raw.slice(4, 6);
   const d = raw.slice(6, 8);
   return `${d}.${m}.${y}`;
 };
 
+
+// onMounted kører når komponenten er klar. Her henter vi alle events fra WordPress og kører igennem dem.
 onMounted(async () => {
   try {
+    // Vores Fetch henter alle oplevelser fra WordPress API'et.
     const items = await $fetch(
       "http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/oplevelser",
     );
 
+    // Promise.all sikrer at vi venter på ALLE async-opgaver i map.
     const resolved = await Promise.all(
       items.map(async (OP) => {
         let image = null;
 
+        // Hvis der findes et billede-id i ACF, henter vi billedets URL.
         if (OP.acf?.billede) {
           const media = await $fetch(
             `http://xn--lynghjsolutions-9tb.dk/wp-json/wp/v2/media/${OP.acf.billede}`,
           );
           image = media.source_url;
-        }
+        };
 
-        return {
+        // Returnerer et nyt objekt med kun de felter vi skal bruge ellers hvis den ikke kan finde en værdi eller hvis vi ikke trækker indholdet ind korrekt vil den display en Error som fx. "Ukendt Title".
+         return {
           title: OP.acf?.overskift || "Ukendt titel",
           region: OP.acf?.region || "Ukendt region",
           category: OP.acf?.kategori || "Ukendt kategori",
@@ -56,8 +74,13 @@ onMounted(async () => {
       }),
     );
 
-    events.value = resolved.sort((a, b) => new Date(b.date) - new Date(a.date));
+events.value = resolved.sort((a, b) => new Date(b.date) - new Date(a.date));
+// Vi sorterer alle events efter dato, så de nyeste kommer først. resolved.sort(indholdet) sorterer arrayet "resolved" direkte hvor (a, b) er to events der sammenlignes new Date(b.date) og new Date(a.date)... Hvis b er nyere end a vil resultatet vise positivt med mindre b kommer før a og det samme omvendt.
 
+// new Date(...) laver dato-strengen om til et rigtigt Date-objekt, så JavaScript kan sammenligne dem korrekt. Kort sagt viser denne linje at events bliver vist i rækkefølgen fra nyeste til ældst.
+
+
+    // Tæller hvor mange events der findes pr. region og kategori.
     const rCounts = {};
     const cCounts = {};
 
@@ -68,13 +91,19 @@ onMounted(async () => {
 
     regionCounts.value = rCounts;
     categoryCounts.value = cCounts;
+
   } catch {
+    // Hvis noget går galt under fetch, sætter vi error til true.
     error.value = true;
+
   } finally {
+    // Uanset hvad, stopper vi loading når alt er færdigt.
     loading.value = false;
   }
 });
 
+
+// filteredEvents filtrerer events baseret på valgte filtre. Hvis "Alle" er valgt, filtreres der ikke på den del.
 const filteredEvents = computed(() =>
   events.value.filter(
     (e) =>
@@ -83,16 +112,17 @@ const filteredEvents = computed(() =>
   ),
 );
 
-// ⭐ FIX: Category counts update based on selected region
+
+// Denne computed tæller kun kategorier indenfor den valgte region.
 const filteredCategoryCounts = computed(() => {
   const counts = {};
 
-  // Start all categories at 0
+  // Starter alle kategorier på 0.
   for (const cat in categoryCounts.value) {
     counts[cat] = 0;
   }
 
-  // Count only events inside selected region
+  // Tæller kun events der matcher den valgte category.
   for (const e of events.value) {
     if (activeRegion.value === "Alle" || e.region === activeRegion.value) {
       counts[e.category] = (counts[e.category] || 0) + 1;
@@ -102,11 +132,14 @@ const filteredCategoryCounts = computed(() => {
   return counts;
 });
 
+
+// Nulstiller begge filtre tilbage til "Alle" hvilket viser.
 const resetFilters = () => {
   activeRegion.value = "Alle";
   activeCategory.value = "Alle";
 };
 </script>
+
 
 <template>
   <div class="events-page">
