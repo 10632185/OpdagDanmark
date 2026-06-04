@@ -120,6 +120,10 @@ const pingAddress = (address) => {
   padding: 16px;
 }
 
+.card-link {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .layout {
     flex-direction: column-reverse;
