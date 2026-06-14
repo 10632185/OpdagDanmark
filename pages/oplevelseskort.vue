@@ -14,7 +14,7 @@ const mapQuery = ref("Denmark");
 //Skifter imellem timer loader og rigtig pending loader som skal virke på den rigtige webside...
 // true  = brug 4 sek timer.
 // false = brug pending loader (den rigtige loader).
-const useTimerLoader = true;
+const useTimerLoader = false;
 
 // Loading logo state smo varer i 4 sekunder...
 const showLoading = ref(true);
@@ -29,6 +29,16 @@ onMounted(() => {
     }, 4000);
   }
 });
+// ----------------------------------------------------------------
+
+// ----------------------------------------------------------------
+// Her tilføjer vi en enkelt animation som er en "fake zoom", grunden er at man ikke kan lave animationer inde i iframes.
+
+// Vi starter på 6 som viser hele danmark, og når brugeren klikker på et kort, ændrer vi zoom til fx 10 for at "zoome ind" på adressen og omkredsen af det..
+const mapZoom = ref(6);
+
+// Når brugeren klikker på et kort, sætter vi mapFading = true, så iframe bliver gennemsigtig (fade out), vi skifter zoom og bagefter sætter vi mapFading = false så kortet fade ind igen. ette giver en illusion af en zoom animation som ikke er rigtig.
+const mapFading = ref(false);
 // ----------------------------------------------------------------
 
 // Vi henter data fra vores WordPress backend via useAsyncData, hvor "oplevelser" bliver vores cache key. En cache key er en unik identifier for det data, vi henter, så Nuxt ved hvordan det skal cache og opdatere dataen. I vores fetch funktion henter vi først alle oplevelser, og derefter laver vi et ekstra loop for at hente billede URL'en for hver oplevelse, da det billede ikke er inkluderet i det første API kald.
@@ -62,12 +72,26 @@ const {
     }),
   );
 });
+
 // Her er vores funktion der opdaterer kortets adresse, når brugeren trykker på en oplevelse.
 const pingAddress = (address) => {
   if (!address) return;
   // Efter brugeren så har trykket opdaterer vi vores MapQuery, så kortet reagere og viser den nye lokation.
   mapQuery.value = address;
 };
+
+//-----------------------------------------------------------------------
+// Starter fade out på kortet (gør iframe gennemsigtig)
+mapFading.value = true;
+
+setTimeout(() => {
+  // Skifter zoom niveau efter fade‑out
+  mapZoom.value = 14;
+
+  // Starter fade in igen (iframe bliver synlig med nyt zoom)
+  mapFading.value = false;
+}, 600); // 600ms = længden af fade out animationen
+//-----------------------------------------------------------------------
 </script>
 
 <template>
@@ -105,12 +129,14 @@ const pingAddress = (address) => {
     </div>
 
     <div class="right">
+      <!-- hAR TILFØJET EN KLASSE TIL VORES IFRAME SOM HEDDER MAPFINDING.. -->
       <iframe
         loading="lazy"
         allowfullscreen
+        :class="mapFading ? 'map-fade' : 'map-visible'"
         :src="`https://www.google.com/maps?q=${encodeURIComponent(
           mapQuery,
-        )}&z=6&output=embed`"
+        )}&z=${mapZoom}&output=embed`"
       ></iframe>
     </div>
   </div>
@@ -216,6 +242,22 @@ const pingAddress = (address) => {
 }
 /* ------------------------------- */
 /* HER SLUTTER LOADER ANIMATIONEN  */
+/* ------------------------------- */
+
+/* ------------------------------- */
+/* HER SLUTTER FAKE ZOOM ANIMATIONEN  */
+/* ------------------------------- */
+.map-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.map-visible {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+/* ------------------------------- */
+/* HER SLUTTER FAKE ZOOM ANIMATIONEN  */
 /* ------------------------------- */
 
 @media (max-width: 768px) {
